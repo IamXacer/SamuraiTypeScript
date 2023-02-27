@@ -1,12 +1,25 @@
-
 .nav{
     grid-area:n;
     background-color: burlywood;
+    width: 200px;
+    
 }
 
-.item {
+.item  {
     color:whitesmoke;
+    margin-left: 40px;
+    text-decoration: none;
+    
 }
-.item.active {
+.item a.activeLink {
     color:gold;
+
+}
+.active {
+    margin-left: 40px;
+    color: gold;
+    text-decoration: none;
+;}
+.items {
+    margin-left: 40px;
 }

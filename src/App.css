@@ -9,6 +9,11 @@
   grid-template-rows:60px 1fr;
   grid-template-columns:2fr 10fr;
  /* grid-gap: 10px;*/
+  justify-content: center;
+}
+.app-wrapper-content {
+  grid-area:auto;
+  background-color: rgba(114, 117, 117, 0.95);
 }
 
 

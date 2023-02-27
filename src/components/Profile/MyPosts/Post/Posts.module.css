@@ -1,0 +1,74 @@
+*{
+    box-sizing: border-box;
+}
+.item {
+    color:greenyellow;
+}
+.items img {
+    width: 50px;
+    height: 50px;
+}
+
+.imgClas{
+     display: flex;
+    justify-content: center;
+}
+
+.imgClas img {
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.social{
+    display: flex;
+    color: azure;
+    list-style: none;
+    padding-left: 0;
+    gap:20px;
+    max-width: 600px;
+}
+
+.social_item{
+    width: 50px;
+    height: 50px;
+    border-radius: 60%;
+    border: 5px solid #fff;
+   display: flex;
+    justify-content: center;
+    align-items: center;
+
+    }
+
+/*.social_item:hover {*/
+/*    background-color: white;*/
+/*}*/
+
+.facebook:hover {
+    background-color:#1195F5;
+    border-color: #14588a;
+   box-shadow: 1px 1px 45px #1195F5;
+}
+
+.vk:hover{
+    background-color: #4BC658;
+    border-color: #237c2d;
+    box-shadow: 1px 1px 45px #4BC658;
+}
+.insagramm:hover{
+    background-color:#DB6D89;
+    border-color: #91364f;
+    box-shadow: 1px 1px 45px #DB6D89;
+}
+.twiter:hover{
+    background-color: #3fa9ec;
+    border-color: #185f91;
+    box-shadow: 1px 1px 45px #1DA1F2;
+}
+.google:hover{
+    background-color: #EA4335;
+    border-color: #FBBC05;
+    box-shadow: 1px 1px 45px #1DA1F2;
+}

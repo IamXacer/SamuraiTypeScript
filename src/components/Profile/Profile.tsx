@@ -1,14 +1,17 @@
 import React from "react";
 import s from './Profile.module.css'
 import {MyPosts} from "./MyPosts/MyPosts";
+import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
+import {PostType, ProfilePageType} from "../redux/state";
 
-export const Profile = () => {
+export type ProfileType ={
+    profilePage:PostType[]
+}
+export const Profile = (props:ProfileType) => {
   return (
-      <div className={s.content}>
-
-          <div><img src='https://cdn.mwallpapers.com/photos/wallpapers/anime/sky-anime-4k-hd-desktop-wallpaper-for-wide-ultra-widescreen-android-iphone-hd-wallpaper-background-downloadhd-wallpapers-desktop-background-android-iphone-1080p-4k-wvpgk.jpg'/></div>
-          <div>Ava+description</div>
-          <MyPosts/>
-             </div>
+      <div className={s.profileWrapperContent}>
+          <ProfileInfo />
+          <MyPosts profilePage={props.profilePage}/>
+      </div>
   )
 }
