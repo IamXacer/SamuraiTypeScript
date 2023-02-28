@@ -47,7 +47,9 @@ export const state:RootStateType = {
             {id: 1, message: 'Hi'},
             {id: 2, message: 'How is your it-education'},
             {id: 3, message: 'Hi'},
-            {id: 4, message: 'Yo'},
+            {id: 4, message: 'LearnReack'},
+            {id: 5, message: 'Redux'},
+
         ]
     },
     sidebar:{}

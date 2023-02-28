@@ -1,33 +1,41 @@
-.imgClas{
-    display: grid;
-  grid-template-columns: 2fr 10fr;
-}
-.imgClas img {
-    width: 1680px;
-    height: 1025px;
-  }
-.backgroundIMG{
+.imgClas {
     display: grid;
     grid-template-columns: 2fr 10fr;
-    height: 1000px;
-    width: 1500px;
-background-image:url("https://abrakadabra.fun/uploads/posts/2022-03/1647177728_9-abrakadabra-fun-p-fon-dlya-saita-shkoli-10.png") ;
 }
-.dialogItem .active{
-color:gold;
+.dialogsItems  {
+    padding: 2px;
+    color: #8a4141;
 }
-.dialogItem .dialog{
 
+/*.imgClas img {
+    width: 1680px;
+    height: 1025px;
+}*/
+
+.backgroundIMG {
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+    width: 1680px;
+    height: 1025px;
+    background-image: url("https://abrakadabra.fun/uploads/posts/2022-03/1647177728_9-abrakadabra-fun-p-fon-dlya-saita-shkoli-10.png");
+}
+
+.dialogItem .active {
+    color: gold;
+}
+
+.dialogItem  {
     padding-left: 50px;
     font-family: Arial, sans-serif;
-font-size: 2em;
-    color: #61a253;
+    font-size: 2em;
+    color: #480a32;
 
 }
-.message{
+
+.message {
     padding-left: 50px;
     padding-top: 50px;
     font-family: Arial, sans-serif;
     font-size: 2em;
-    color: #3c413b;
+    color: #2e811d;
 }

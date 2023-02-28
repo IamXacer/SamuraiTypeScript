@@ -15,6 +15,8 @@ const DialogItem = (props: DialogType) => {
     )
 }
 export const Dialog = (props:DialogType) => {
+    let messageElemets = props.dialogsPage.messages.map(m=><div >{m.message}</div>)
+    let dialogsElement = props.dialogsPage.dialogs.map(d=><div >{d.name}</div>)
     let dialogsData = [
         {id: 1, name: 'Dimich'},
         {id: 2, name: 'Andrey'},
@@ -26,26 +28,14 @@ export const Dialog = (props:DialogType) => {
     ]
     return (
         <div className={s.imgClas}>
-
             <div className={s.backgroundIMG}>
-                <div className={s.dialogItem}>
-                    <div><NavLink to='dialog/*' className={s.dialog}>
-                        <div className={s.dialog}><DialogItem dialogsPage={props.dialogsPage}/></div>
-                    </NavLink></div>
-            {/*        <div><NavLink to='dialog/2' className={s.dialog}>Andrey</NavLink></div>
-                    <div><NavLink to='dialog/3' className={s.dialog}>Sveta</NavLink></div>
-                    <div><NavLink to='dialog/4' className={s.dialog}>Valera</NavLink></div>
-                    <div><NavLink to='dialog/5' className={s.dialog}>Viktor</NavLink></div>
-                    <div><NavLink to='dialog/6' className={s.dialog}>Sasha</NavLink></div>*/}
-
-                </div>
-                <div className={s.message}>
-                    <div className="massages">Hi</div>
-                    <div className="massages">How are you</div>
-                    <div className="massages">Yo</div>
-                </div>
+            <div className={s.dialogItem}>
+               {dialogsElement}
             </div>
-
+            <div className={s.message}>
+                {messageElemets}
+            </div>
+            </div>
         </div>
     )
 }
