@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef} from "react";
 import s from './Dialogs.module.css'
 import {NavLink} from "react-router-dom";
 import {DialogPageType, MessageType, ProfilePageType} from "../redux/state";
@@ -26,6 +26,12 @@ export const Dialog = (props:DialogType) => {
         {id: 6, name: 'Sasha'},
 
     ]
+    let newDialogEl = useRef<HTMLTextAreaElement>(null)
+    const addDialog = () =>{
+if (newDialogEl.current !==null){
+    alert(newDialogEl.current.value)
+}
+    }
     return (
         <div className={s.imgClas}>
             <div className={s.backgroundIMG}>
@@ -34,7 +40,10 @@ export const Dialog = (props:DialogType) => {
             </div>
             <div className={s.message}>
                 {messageElemets}
+                <div><textarea ref={newDialogEl}></textarea></div>
+                <div onClick={addDialog}><button>AddDialog</button></div>
             </div>
+
             </div>
         </div>
     )
