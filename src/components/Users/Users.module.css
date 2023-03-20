@@ -1,0 +1,48 @@
+.img{
+    width:80px ;
+    height:80px ;
+
+}
+.container{
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+}
+
+.dialogsItems  {
+    padding: 2px;
+    color: #8a4141;
+}
+.backgroundIMG {
+
+    width: 1680px;
+    height: 1025px;
+    padding-left: 10px;
+    background-image: url("https://klike.net/uploads/posts/2022-11/1669446615_3-55.jpg");
+}
+.message {
+    padding-right: 10px;
+    padding-top: 7px;
+    font-family: Arial, sans-serif;
+    font-size: 0.9em;
+  color: #76d2d2;
+}
+.button {
+display: inline-block;
+    padding:10px 15px ;
+    background-color: #497c29;
+    border:1px solid #1da1f2 ;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.button:focus{
+    outline: none;
+}
+.button:hover{
+  text-decoration: none;
+}
+.selectedPage:focus {
+    font-weight: bold;
+    vertical-align: middle;
+    background-color: #8cc568;
+    border:1px solid #6fa9c9;
+}

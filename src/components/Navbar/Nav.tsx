@@ -13,6 +13,9 @@ export const Nav = () => {
               <NavLink to='/dialogs' className = { nav => nav.isActive ? s.active : s.item }>Messages</NavLink>
           </div>
           <div className={s.items}>
+              <NavLink to='/users' className = { nav => nav.isActive ? s.active : s.item }>Users</NavLink>
+          </div>
+          <div className={s.items}>
               <NavLink to='/news' className = { nav=> nav.isActive? s.active : s.item }>News</NavLink>
           </div>
           <div className={s.items}>

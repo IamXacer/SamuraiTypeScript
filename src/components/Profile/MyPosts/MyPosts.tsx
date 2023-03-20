@@ -1,37 +1,46 @@
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent, MouseEvent} from "react";
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
-import { PostType} from "../../redux/state";
+import {ActionTypes, PostType} from "../../redux/state";
 import {PostIcon} from "./Post/PostIcon";
-
+import { SuperMyPostContainerType} from "./MyPostsContainer";
+/*
 export type MessageType = {
     profilePagestate: PostType[]
-    addNewPost:(postMessage:string)=>void
+   addNewPost:(postMessage:string)=>void
     newPostText:string
-    updateNewPostText:(newText:string)=>void
-}
-export const MyPosts = (props:MessageType) => {
-    const posts = props.profilePagestate.map(postmassage =>
+        updateNewPostText:(newText:string)=>void
+    dispatch:(action:ActionTypes)=>void
+//  store:StoreType
+}*/
+export const MyPosts = (props:SuperMyPostContainerType) => {
+    let {newPostText,posts} = props.profilePagestate;
+
+    const post = props.profilePagestate.posts.map(postmassage =>
         <Post id={postmassage.id} message={postmassage.message}
               likeCount={postmassage.likesCount}/>)
 
 
-    const addPost = () => {
-        props.addNewPost(props.newPostText)
+    const onAddPost = () => {
+        props.addNewPost(newPostText)
+        //props.dispatch(props.newPostText)
+        //props.dispatch(addPostAC(props.newPostText))
     }
 const onchangeHandler = (e:ChangeEvent<HTMLTextAreaElement>) => {
-  props.updateNewPostText(e.currentTarget.value)
+ let text = e.currentTarget.value
+    //props.dispatch(updateNewPostTextAC(text))
+    props.updateNewPostText(text)
+    }
 
-}
   return (
      <div>
          <div>My Post</div>
          <div><textarea
-             value={props.newPostText}
+             value={newPostText}
              onChange={onchangeHandler}/> </div>
-           <div onClick={addPost}> <button>AddPost</button></div>
+           <div onClick={onAddPost}> <button>AddPost</button></div>
 
-         <div>{posts}</div>
+         <div>{post}</div>
        {/*<Post profilePage={props.profilePage}/>*/}
          <PostIcon/>
      </div>
