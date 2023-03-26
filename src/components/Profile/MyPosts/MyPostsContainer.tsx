@@ -1,7 +1,7 @@
 import React from "react";
 import {Post} from "./Post/Post";
 import {ActionTypes, PostType, ProfilePageType, StoreType} from "../../redux/state";
-import {addPostAC, updateNewPostTextAC} from "../../redux/profile-reducer";
+import {addPostAC, initStateType, updateNewPostTextAC} from "../../redux/profile-reducer";
 import {MyPosts} from "./MyPosts";
 import StoreContex from "../../../StoreContex";
 import {connect} from "react-redux";
@@ -55,7 +55,7 @@ export type MessageType = {
 export type SuperMyPostContainerType = mapStateToPropsType & mapDispatchToPropsType
 
  type mapStateToPropsType = {
-    profilePagestate: ProfilePageType,
+    profilePagestate: initStateType,
   //  newPostText:string
 }
 let mapStateToProps = (state:AppStateType):mapStateToPropsType => {

@@ -1,7 +1,16 @@
 import { dialogsReducer, sendTextAC, updateNewMesssageTextAC } from "./dialogs-reducer"
-import {addPostAC, profileReducer, updateNewPostTextAC} from "./profile-reducer"
+import {addPostAC, profileReducer, setUserProfileAC, updateNewPostTextAC} from "./profile-reducer"
 import {sidebarReducer} from "./sidebar-reducer";
-import {FollowAC, setCurrentAC, setUsersAC, setUsersTotalCountAC, ToggleFeathingAC, ufollowAC} from "./users-reducer";
+import {
+    FollowAC,
+    setCurrentAC,
+    setUsersAC,
+    setUsersTotalCountAC,
+    ToggleFeathingAC,
+    togleFollovingInProhresAC,
+    ufollowAC
+} from "./users-reducer";
+import {setUserAuthDataAC} from "./auth-reducer";
 
 export type StoreType = {
     _state:RootStateType
@@ -15,7 +24,7 @@ export type StoreType = {
     updateNewMessageText:(newText: string)=>void
 
 }
-export const store:StoreType = {
+/*export const store:StoreType = {
     _state: {
         profilePage: {
             posts: [
@@ -89,13 +98,13 @@ return this._state
         this._state.dialogsPage.newMessageText = newDialogText
         this._callSubscriber(this._state)
     },
-    dispatch (action) {
+/!*    dispatch (action) {
         this._state.profilePage = profileReducer(this._state.profilePage,action)
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage,action)
         this._state.sidebar = sidebarReducer(this._state.sidebar,action)
         store._callSubscriber(this._state)
 
-/*if (action.type === 'ADD-POST'){
+/!*if (action.type === 'ADD-POST'){
     const newPost: PostType = {
         id: "5",
        // message: this._state.profilePage.newPostText,
@@ -119,12 +128,12 @@ else if(action.type === 'UPDATE-NEW-MESSAGE-BODY'){
     this._state.dialogsPage.newMessageText = ''
     this._state.dialogsPage.messages.push({id: 6,message:body})
     this._callSubscriber(this._state)
+}*!/
+
+
+    }*!/
+
 }*/
-
-
-    }
-
-}
 
 
 
@@ -140,6 +149,9 @@ export type ActionTypes =
     |ReturnType<typeof setCurrentAC>
     |ReturnType<typeof setUsersTotalCountAC>
     |ReturnType<typeof ToggleFeathingAC>
+    |ReturnType<typeof setUserProfileAC>
+    |ReturnType<typeof setUserAuthDataAC>
+    |ReturnType<typeof togleFollovingInProhresAC>
 
 
 export type MessageType = {

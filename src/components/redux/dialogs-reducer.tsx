@@ -1,7 +1,14 @@
 import React from "react";
 import {ActionTypes, DialogPageType, RootStateType, StoreType} from "./state";
-
-const initState: DialogPageType = {
+export type DialogType = {
+    id: number,
+    name: string,
+}
+export type MessageType = {
+    id: number,
+    message: string,
+}
+const initState = {
     dialogs: [
         {id: 1, name: 'Dimich'},
         {id: 2, name: 'Andrey'},
@@ -9,7 +16,7 @@ const initState: DialogPageType = {
         {id: 4, name: 'Valera'},
         {id: 5, name: 'Viktor'},
         {id: 6, name: 'Sasha'},
-    ],
+    ] as DialogType[],
     messages: [
         {id: 1, message: 'Hi'},
         {id: 2, message: 'How is your it-education'},
@@ -17,10 +24,11 @@ const initState: DialogPageType = {
         {id: 4, message: 'LearnReack'},
         {id: 5, message: 'Redux'},
 
-    ],
+    ] as MessageType[],
     newMessageText: '',
 }
-export const dialogsReducer = (state = initState, action: ActionTypes): DialogPageType => {
+export type initStateType = typeof initState
+export const dialogsReducer = (state:initStateType = initState, action: ActionTypes): initStateType => {
     switch (action.type) {
         case "UPDATE-NEW-MESSAGE-BODY":
             //state.newMessageText = action.body

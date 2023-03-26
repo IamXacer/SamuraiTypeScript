@@ -1,5 +1,5 @@
 import React from "react";
-import {store, StoreType} from "./components/redux/state";
+import { StoreType} from "./components/redux/state";
 
 /*interface IContextProps {
     state:RootStateType

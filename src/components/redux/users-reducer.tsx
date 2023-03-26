@@ -1,7 +1,7 @@
 import React from "react";
 import {ActionTypes} from "./state";
 export type UsersType ={
-    id:number,
+    id:string,
     followed:boolean
     name:string
     status:string
@@ -23,7 +23,8 @@ type InitialStateUserType = {
     totalUserCount:number
     currenPage:number
     isFetching:boolean
-
+  //  followingInProgress:boolean
+  followingInProgress:string[],
 }
 const inirialState:InitialStateUserType = {
     users: [],
@@ -31,6 +32,8 @@ const inirialState:InitialStateUserType = {
     totalUserCount:5,
     currenPage:10,
     isFetching:true,
+   // followingInProgress:true
+    followingInProgress:[]
 }
 export const userReducer = (state = inirialState, action: ActionTypes):InitialStateUserType => {
     switch (action.type) {
@@ -55,6 +58,19 @@ export const userReducer = (state = inirialState, action: ActionTypes):InitialSt
           return {...state,totalUserCount:action.count}
         case "TOGGLE_IS_FEATHING":
             return {...state,isFetching:action.isFetching}
+        case 'FOLOWING_PROGRESS':{
+            return {...state,
+                followingInProgress:action.isFetching ?
+                  [...state.followingInProgress,action.userId]
+                    :[...state.followingInProgress.filter(id=>id !== action.userId)]
+            }
+         /*   return {...state,
+                followingInProgress:action.isFetching
+                    ? [...state.followingInProgress, action.userId]
+                    : state.followingInProgress.filter(id=>id != action.userId)
+
+            }*/
+        }
         default:
             return state
 
@@ -63,10 +79,10 @@ export const userReducer = (state = inirialState, action: ActionTypes):InitialSt
 
 }
 
-export const FollowAC = (userId:number) => {
+export const FollowAC = (userId:string) => {
     return {type:'FOLLOW',userId}as const
 }
-export const ufollowAC = (userId:number) => {
+export const ufollowAC = (userId:string) => {
     return {type:'UNFOLLOW',userId} as const
 
 }
@@ -82,5 +98,8 @@ export const setUsersTotalCountAC = (count:number) => {
 }
 export const ToggleFeathingAC = (isFetching:boolean) => {
     return {type:'TOGGLE_IS_FEATHING',isFetching} as const
+}
+export const togleFollovingInProgresAC = (isFetching:boolean, userId:string) => {
+    return {type:'FOLOWING_PROGRESS',isFetching, userId} as const
 }
 

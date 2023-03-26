@@ -7,7 +7,7 @@ import {
   setCurrentAC,
   setUsersAC,
   setUsersTotalCountAC,
-  ToggleFeathingAC,
+  ToggleFeathingAC, togleFollovingInProgresAC,
   ufollowAC,
   UsersType
 } from "../redux/users-reducer";
@@ -16,6 +16,7 @@ import {Users} from "./Users";
 import prealoader from "../../assets/img/Prealoader.svg"
 import s from "../Users/Users.module.css"
 import {Preloader} from "../common/Preloader/Preloader";
+import {usersAPI} from "../../api/api";
 
 
 export type SuperUserContainerType = mapStateToPropsType & mapDispatchToPropsType
@@ -25,23 +26,26 @@ type mapStateToPropsType = {
   totalUserCount:number
   currenPage:number
   isFetching:boolean
+  followingInProgress:string[]
 }
 
 type mapDispatchToPropsType = {
-  follow:(userId:number)=>void
-  unfollow:(userId:number)=>void
+  follow:(userId:string)=>void
+  unfollow:(userId:string)=>void
   setUser:(users:UsersType[])=>void
   setCurrentPage:(currenPage:number)=>void
   setTotalUserCount:(totalCount:number)=>void
   tofleIsFeathing:(isFetching:boolean)=>void
+  followingInProgress:(isFetching:boolean, userId:string)=>void
+
 }
 class UsersAPIComponent extends React.Component<SuperUserContainerType, UsersType> {
   componentDidMount() {
     this.props.tofleIsFeathing(true)
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currenPage}&count=${this.props.pageSize}`).then(res => {
+    usersAPI.getUsers(this.props.currenPage,this.props.pageSize).then(data => {
       this.props.tofleIsFeathing(false)
-      this.props.setUser(res.data.items)
-      this.props.setTotalUserCount(res.data.totalCount)
+      this.props.setUser(data.items)
+      this.props.setTotalUserCount(data.totalCount)
     })
   }
   /*   onPageChanged = (pageNumber:number)=>{
@@ -72,6 +76,7 @@ class UsersAPIComponent extends React.Component<SuperUserContainerType, UsersTyp
               setCurrentPage={this.props.setCurrentPage}
               isFetching={this.props.isFetching}
               tofleIsFeathing={this.props.tofleIsFeathing}
+      followingInProgress={this.props.followingInProgress}
           />}
       </div>
 
@@ -84,11 +89,13 @@ let mapStateToProps = (state:AppStateType):mapStateToPropsType => {
     pageSize:state.userPage.pageSize,
     totalUserCount:state.userPage.totalUserCount,
     currenPage:state.userPage.currenPage,
-    isFetching:state.userPage.isFetching
+    isFetching:state.userPage.isFetching,
+    followingInProgress:state.userPage.followingInProgress
+
   }
 }
 
-let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
+/*let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
   return {
     follow: (userId: number) => {
       dispatch(FollowAC(userId))
@@ -104,13 +111,13 @@ let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
     },
     setTotalUserCount: (totalCount: number) => {
       dispatch(setUsersTotalCountAC(totalCount))
-    },
+    },a
     tofleIsFeathing: (isFetching: boolean) => {
       dispatch(ToggleFeathingAC(isFetching))
     }
 
   }
-}
+}*/
 
 export const UsersContainer = connect(mapStateToProps, {
   follow: FollowAC,
@@ -119,7 +126,10 @@ export const UsersContainer = connect(mapStateToProps, {
   setCurrentPage: setCurrentAC,
   setTotalUserCount: setUsersTotalCountAC,
   tofleIsFeathing: ToggleFeathingAC,
+  followingInProgress:togleFollovingInProgresAC
 
     }
 
 )(UsersAPIComponent)
+
+

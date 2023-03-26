@@ -4,6 +4,7 @@ import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {ActionTypes, PostType, ProfilePageType, StoreType} from "../redux/state";
 import { SuperMyPostContainer, SuperMyPostContainerType} from "./MyPosts/MyPostsContainer";
+import {mapStateToPropsType} from "./ProfileContainer";
 
 /*export type ProfileType ={
  //   profilePagestate:PostType[]
@@ -13,10 +14,15 @@ import { SuperMyPostContainer, SuperMyPostContainerType} from "./MyPosts/MyPosts
  //   dispatch:(action:ActionTypes)=>void
  // store:StoreType
 }*/
-export const Profile = () => {
+/*export type ProfileType= {
+    profile:null
+
+
+}*/
+export const Profile = (props:any) => {
   return (
       <div className={s.profileWrapperContent}>
-          <ProfileInfo />
+          <ProfileInfo profile={props.profile}/>
           <SuperMyPostContainer
               //store={props.store}
 
