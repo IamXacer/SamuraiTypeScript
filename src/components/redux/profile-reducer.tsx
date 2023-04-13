@@ -1,5 +1,7 @@
 import React from "react";
 import {ActionTypes, PostType, ProfilePageType, RootStateType} from "./state";
+import {Dispatch} from "redux";
+import {usersAPI} from "../../api/api";
 export type postsType ={
     id: string,
     message:string,
@@ -48,4 +50,10 @@ export const updateNewPostTextAC = (text:string) =>{
 }
 export const setUserProfileAC = (profile:null) =>{
     return {type: 'SET_USER_PROFILE',profile} as const
+}
+
+export const getProfileTC =(userId:string)=>(dispatch:Dispatch)=>{
+    usersAPI.getProfile(userId).then(res => {
+        dispatch(setUserProfileAC(res.data))
+    })
 }

@@ -56,7 +56,6 @@ export type SuperMyPostContainerType = mapStateToPropsType & mapDispatchToPropsT
 
  type mapStateToPropsType = {
     profilePagestate: initStateType,
-  //  newPostText:string
 }
 let mapStateToProps = (state:AppStateType):mapStateToPropsType => {
     return{

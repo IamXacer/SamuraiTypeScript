@@ -2,13 +2,12 @@ import { dialogsReducer, sendTextAC, updateNewMesssageTextAC } from "./dialogs-r
 import {addPostAC, profileReducer, setUserProfileAC, updateNewPostTextAC} from "./profile-reducer"
 import {sidebarReducer} from "./sidebar-reducer";
 import {
-    FollowAC,
+    followSuccess,
     setCurrentAC,
     setUsersAC,
     setUsersTotalCountAC,
-    ToggleFeathingAC,
-    togleFollovingInProhresAC,
-    ufollowAC
+    ToggleFeathingAC, ToglefollowingInProgress,
+     unfollowSuccess
 } from "./users-reducer";
 import {setUserAuthDataAC} from "./auth-reducer";
 
@@ -143,15 +142,15 @@ export type ActionTypes =
     |ReturnType<typeof addPostAC>
     |ReturnType<typeof updateNewMesssageTextAC>
     |ReturnType<typeof sendTextAC>
-    |ReturnType<typeof FollowAC>
-    |ReturnType<typeof ufollowAC>
+    |ReturnType<typeof followSuccess>
+    |ReturnType<typeof unfollowSuccess>
     |ReturnType<typeof setUsersAC>
     |ReturnType<typeof setCurrentAC>
     |ReturnType<typeof setUsersTotalCountAC>
     |ReturnType<typeof ToggleFeathingAC>
     |ReturnType<typeof setUserProfileAC>
     |ReturnType<typeof setUserAuthDataAC>
-    |ReturnType<typeof togleFollovingInProhresAC>
+    |ReturnType<typeof ToglefollowingInProgress>
 
 
 export type MessageType = {

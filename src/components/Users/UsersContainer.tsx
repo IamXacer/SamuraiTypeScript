@@ -1,14 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
-import {Dispatch} from "redux";
 import {AppStateType} from "../redux/redux-store";
 import {
-  FollowAC,
+  followSuccess, followTC, getUsersTC,
   setCurrentAC,
   setUsersAC,
   setUsersTotalCountAC,
-  ToggleFeathingAC, togleFollovingInProgresAC,
-  ufollowAC,
+  ToggleFeathingAC, ToglefollowingInProgress,
+  unfollowSuccess, unfollowTC,
   UsersType
 } from "../redux/users-reducer";
 import axios from "axios";
@@ -35,26 +34,27 @@ type mapDispatchToPropsType = {
   setUser:(users:UsersType[])=>void
   setCurrentPage:(currenPage:number)=>void
   setTotalUserCount:(totalCount:number)=>void
-  tofleIsFeathing:(isFetching:boolean)=>void
-  followingInProgress:(isFetching:boolean, userId:string)=>void
+   tofleIsFeathing:(isFetching:boolean)=>void
+  ToglefollowingInProgress:(isFetching:boolean, userId:string)=>void
+  getUsers:(currenPage:number,pageSize:number)=>void
 
 }
 class UsersAPIComponent extends React.Component<SuperUserContainerType, UsersType> {
   componentDidMount() {
-    this.props.tofleIsFeathing(true)
-    usersAPI.getUsers(this.props.currenPage,this.props.pageSize).then(data => {
-      this.props.tofleIsFeathing(false)
-      this.props.setUser(data.items)
-      this.props.setTotalUserCount(data.totalCount)
-    })
+    this.props.getUsers(this.props.currenPage,this.props.pageSize)
   }
-  /*   onPageChanged = (pageNumber:number)=>{
-         this.props.setCurrentPage(pageNumber)
-         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(res => {
+
+     onPageChanged = (pageNumber:number)=>{
+       this.props.getUsers(pageNumber,this.props.pageSize)
+       /*     this.props.setCurrentPage(pageNumber)
+       this.props.tofleIsFeathing(true)
+       usersAPI.getUsers(pageNumber,this.props.pageSize)
+           .then(res => {
              this.props.setUser(res.data.items)
+             this.props.tofleIsFeathing(true)
              this.props.setTotalUserCount(res.data.totalCount)
-         })
-     }*/
+         })*/
+     }
   render (){
     /*    let pagesCount = Math.ceil(this.props.totalUserCount/this.props.pageSize)
           let pages=[];
@@ -69,14 +69,18 @@ class UsersAPIComponent extends React.Component<SuperUserContainerType, UsersTyp
               users={this.props.users}
               currenPage={this.props.currenPage}
               follow={this.props.follow}
+              unfollow={this.props.unfollow}
               pageSize={this.props.pageSize}
               setTotalUserCount={this.props.setTotalUserCount}
               setUser={this.props.setUser}
-              unfollow={this.props.unfollow}
               setCurrentPage={this.props.setCurrentPage}
               isFetching={this.props.isFetching}
               tofleIsFeathing={this.props.tofleIsFeathing}
-      followingInProgress={this.props.followingInProgress}
+
+              followingInProgress={this.props.followingInProgress}
+              ToglefollowingInProgress={this.props.ToglefollowingInProgress}
+              getUsers={this.props.getUsers}
+
           />}
       </div>
 
@@ -111,7 +115,7 @@ let mapStateToProps = (state:AppStateType):mapStateToPropsType => {
     },
     setTotalUserCount: (totalCount: number) => {
       dispatch(setUsersTotalCountAC(totalCount))
-    },a
+    },
     tofleIsFeathing: (isFetching: boolean) => {
       dispatch(ToggleFeathingAC(isFetching))
     }
@@ -120,16 +124,20 @@ let mapStateToProps = (state:AppStateType):mapStateToPropsType => {
 }*/
 
 export const UsersContainer = connect(mapStateToProps, {
-  follow: FollowAC,
-  unfollow: ufollowAC,
-  setUser: setUsersAC,
+  follow: followTC,
+  unfollow: unfollowTC,
+  setUser: setUsersAC,//
   setCurrentPage: setCurrentAC,
-  setTotalUserCount: setUsersTotalCountAC,
-  tofleIsFeathing: ToggleFeathingAC,
-  followingInProgress:togleFollovingInProgresAC
+  setTotalUserCount: setUsersTotalCountAC,//
+  tofleIsFeathing: ToggleFeathingAC,//
+  ToglefollowingInProgress,
+  getUsers:getUsersTC
+})(UsersAPIComponent)
 
-    }
-
-)(UsersAPIComponent)
-
-
+/*export const UsersContainer = connect(mapStateToProps, {
+  follow: followTC,
+  unfollow: unfollowTC,
+  setCurrentPage: setCurrentAC,
+  ToglefollowingInProgress,
+  getUsers:getUsersTC
+})(UsersAPIComponent)*/

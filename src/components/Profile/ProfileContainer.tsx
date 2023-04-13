@@ -3,9 +3,9 @@ import {Profile} from "./Profile";
 import axios from "axios";
 import {AppStateType} from "../redux/redux-store";
 import { connect } from "react-redux";
-import {initStateType, setUserProfileAC} from "../redux/profile-reducer";
-import {DialogPageType} from "../redux/state";
+import {getProfileTC, initStateType, setUserProfileAC} from "../redux/profile-reducer";
 import { useParams } from 'react-router-dom';
+import {usersAPI} from "../../api/api";
 
 export function withRouter(Children: any) {
     return (props: any) => {
@@ -18,9 +18,10 @@ class ProfileContainer extends React.Component<any, initStateType>{
     componentDidMount() {
         let userId = this.props.match.params.userId
         if (!userId) {userId = 2}
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/`+userId ).then(res => {
+   this.props.getProfileTC(userId)
+     /*   usersAPI.getProfile(userId).then(res => {
             this.props.setUserProfileAC(res.data)
-        })
+        })*/
     }
 
     render (){
@@ -39,5 +40,5 @@ profile:state.profileReducer.profile
     }
 }
 let WitchUrlDataContainerComponent =  withRouter(ProfileContainer)
-export default connect(mapStateToProps,{setUserProfileAC})
+export default connect(mapStateToProps,{getProfileTC})
 (WitchUrlDataContainerComponent);

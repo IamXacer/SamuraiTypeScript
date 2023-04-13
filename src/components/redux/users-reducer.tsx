@@ -1,5 +1,9 @@
 import React from "react";
 import {ActionTypes} from "./state";
+import {AnyAction, Dispatch} from "redux";
+import {usersAPI} from "../../api/api";
+import { ThunkAction } from "redux-thunk";
+import {AppStateType} from "./redux-store";
 export type UsersType ={
     id:string,
     followed:boolean
@@ -39,6 +43,7 @@ export const userReducer = (state = inirialState, action: ActionTypes):InitialSt
     switch (action.type) {
         case 'FOLLOW':
             return {...state,users:state.users.map(u=> {
+                    debugger
    if(u.id === action.userId) {
        return {...u,followed:true}
     }
@@ -62,7 +67,7 @@ export const userReducer = (state = inirialState, action: ActionTypes):InitialSt
             return {...state,
                 followingInProgress:action.isFetching ?
                   [...state.followingInProgress,action.userId]
-                    :[...state.followingInProgress.filter(id=>id !== action.userId)]
+                    :state.followingInProgress.filter(id=>id !== action.userId)
             }
          /*   return {...state,
                 followingInProgress:action.isFetching
@@ -79,10 +84,10 @@ export const userReducer = (state = inirialState, action: ActionTypes):InitialSt
 
 }
 
-export const FollowAC = (userId:string) => {
+export const followSuccess = (userId:string) => {
     return {type:'FOLLOW',userId}as const
 }
-export const ufollowAC = (userId:string) => {
+export const unfollowSuccess = (userId:string) => {
     return {type:'UNFOLLOW',userId} as const
 
 }
@@ -99,7 +104,41 @@ export const setUsersTotalCountAC = (count:number) => {
 export const ToggleFeathingAC = (isFetching:boolean) => {
     return {type:'TOGGLE_IS_FEATHING',isFetching} as const
 }
-export const togleFollovingInProgresAC = (isFetching:boolean, userId:string) => {
+export const ToglefollowingInProgress = (isFetching:boolean, userId:string) => {
     return {type:'FOLOWING_PROGRESS',isFetching, userId} as const
 }
 
+export const getUsersTC =(currenPage:number,pageSize:number)=> {return(dispatch:Dispatch<ActionTypes>) => {
+    dispatch(setCurrentAC(currenPage))
+    dispatch(ToggleFeathingAC(true))
+    usersAPI.getUsers(currenPage,pageSize).then(data => {
+        dispatch(ToggleFeathingAC(false))
+        dispatch(setUsersAC(data.items))
+       dispatch(setUsersTotalCountAC(data.totalCount))
+    })
+}}
+
+export const followTC =(userId:string)=> {return(dispatch:Dispatch<ActionTypes>) => {
+    dispatch(ToglefollowingInProgress(true,userId))
+    debugger
+    usersAPI.follow(userId)
+        .then(res => {
+            if (res.data.resultCode === 0){
+                dispatch(followSuccess(userId)) }
+            dispatch(ToglefollowingInProgress(false,userId))
+        })
+}}
+export const unfollowTC =(userId:string):ThunkAction<void, AppStateType, unknown, ActionTypes>=>
+{return(dispatch
+           // :Dispatch<ActionTypes>
+) => {
+    debugger
+    dispatch(ToglefollowingInProgress(true,userId))
+    usersAPI.unfollow(userId)
+        .then(res => {
+            debugger
+            if (res.data.resultCode === 0){
+                dispatch (unfollowSuccess(userId))}
+            dispatch(ToglefollowingInProgress(false,userId))
+        })
+}}
