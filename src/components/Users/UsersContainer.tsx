@@ -2,20 +2,19 @@ import React from "react";
 import { connect } from "react-redux";
 import {AppStateType} from "../redux/redux-store";
 import {
-  followSuccess, followTC, getUsersTC,
+   followTC, getUsersTC,
   setCurrentAC,
   setUsersAC,
   setUsersTotalCountAC,
   ToggleFeathingAC, ToglefollowingInProgress,
-  unfollowSuccess, unfollowTC,
+   unfollowTC,
   UsersType
 } from "../redux/users-reducer";
-import axios from "axios";
 import {Users} from "./Users";
-import prealoader from "../../assets/img/Prealoader.svg"
 import s from "../Users/Users.module.css"
 import {Preloader} from "../common/Preloader/Preloader";
-import {usersAPI} from "../../api/api";
+import {witchAutchRedirect} from "../../hoc/AutchRedirect";
+import { compose } from "redux";
 
 
 export type SuperUserContainerType = mapStateToPropsType & mapDispatchToPropsType
@@ -46,22 +45,9 @@ class UsersAPIComponent extends React.Component<SuperUserContainerType, UsersTyp
 
      onPageChanged = (pageNumber:number)=>{
        this.props.getUsers(pageNumber,this.props.pageSize)
-       /*     this.props.setCurrentPage(pageNumber)
-       this.props.tofleIsFeathing(true)
-       usersAPI.getUsers(pageNumber,this.props.pageSize)
-           .then(res => {
-             this.props.setUser(res.data.items)
-             this.props.tofleIsFeathing(true)
-             this.props.setTotalUserCount(res.data.totalCount)
-         })*/
+
      }
   render (){
-    /*    let pagesCount = Math.ceil(this.props.totalUserCount/this.props.pageSize)
-          let pages=[];
-          for (let i=1; i<=pagesCount; i++){
-             pages.push(i);
-          }*/
-
     return <div className={s.backgroundIMG}>
       {this.props.isFetching ? <Preloader/>
           :<Users
@@ -87,6 +73,7 @@ class UsersAPIComponent extends React.Component<SuperUserContainerType, UsersTyp
   }
 
 }
+let witchRedirect = witchAutchRedirect(UsersAPIComponent)
 let mapStateToProps = (state:AppStateType):mapStateToPropsType => {
   return{
     users:state.userPage.users,
@@ -98,7 +85,7 @@ let mapStateToProps = (state:AppStateType):mapStateToPropsType => {
 
   }
 }
-
+/*let WitchUrlDataContainerComponent =  withRouter(AutchRedirectComponent)*/
 /*let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
   return {
     follow: (userId: number) => {
@@ -123,7 +110,8 @@ let mapStateToProps = (state:AppStateType):mapStateToPropsType => {
   }
 }*/
 
-export const UsersContainer = connect(mapStateToProps, {
+
+/*export const UsersContainer = connect(mapStateToProps, {
   follow: followTC,
   unfollow: unfollowTC,
   setUser: setUsersAC,//
@@ -132,12 +120,16 @@ export const UsersContainer = connect(mapStateToProps, {
   tofleIsFeathing: ToggleFeathingAC,//
   ToglefollowingInProgress,
   getUsers:getUsersTC
-})(UsersAPIComponent)
-
-/*export const UsersContainer = connect(mapStateToProps, {
+})(witchRedirect)*/
+export default compose<React.ComponentType>(connect(mapStateToProps, {
+  //witchRedirect,
   follow: followTC,
   unfollow: unfollowTC,
+  setUser: setUsersAC,//
   setCurrentPage: setCurrentAC,
+  setTotalUserCount: setUsersTotalCountAC,//
+  tofleIsFeathing: ToggleFeathingAC,//
   ToglefollowingInProgress,
-  getUsers:getUsersTC
-})(UsersAPIComponent)*/
+  getUsers:getUsersTC,
+  witchAutchRedirect
+}))(UsersAPIComponent)

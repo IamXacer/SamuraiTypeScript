@@ -1,5 +1,5 @@
-import { dialogsReducer, sendTextAC, updateNewMesssageTextAC } from "./dialogs-reducer"
-import {addPostAC, profileReducer, setUserProfileAC, updateNewPostTextAC} from "./profile-reducer"
+import {DialogPageType, dialogsReducer, sendTextAC} from "./dialogs-reducer"
+import {addPostAC, profileReducer, setStatusProfileAC, setUserProfileAC, updateNewPostTextAC} from "./profile-reducer"
 import {sidebarReducer} from "./sidebar-reducer";
 import {
     followSuccess,
@@ -140,7 +140,7 @@ else if(action.type === 'UPDATE-NEW-MESSAGE-BODY'){
 export type ActionTypes =
     ReturnType<typeof updateNewPostTextAC>
     |ReturnType<typeof addPostAC>
-    |ReturnType<typeof updateNewMesssageTextAC>
+   // |ReturnType<typeof updateNewMesssageTextAC>
     |ReturnType<typeof sendTextAC>
     |ReturnType<typeof followSuccess>
     |ReturnType<typeof unfollowSuccess>
@@ -151,6 +151,7 @@ export type ActionTypes =
     |ReturnType<typeof setUserProfileAC>
     |ReturnType<typeof setUserAuthDataAC>
     |ReturnType<typeof ToglefollowingInProgress>
+    |ReturnType<typeof setStatusProfileAC>
 
 
 export type MessageType = {
@@ -167,11 +168,11 @@ export type  PostType = {
     likesCount: number
 }
 
-export type  DialogPageType = {
+/*export type  DialogPageType = {
     dialogs: DialogType[]
     messages: MessageType[]
     newMessageText:string
-}
+}*/
 export type  SidebarType = {}
 export type  RootStateType = {
     profilePage: ProfilePageType

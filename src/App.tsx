@@ -4,19 +4,16 @@ import {Header} from "./components/Header/Header";
 import {Nav} from "./components/Navbar/Nav";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import { Profile } from './components/Profile/Profile';
-import { SuperDialogContainer} from "./components/Dialogs/DialogsContainer";
-import { UsersContainer } from './components/Users/UsersContainer';
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import Login from "./components/Login/Login";
+import {SuperDialogContainer} from "./components/Dialogs/DialogsContainer";
+import UsersContainer from "./components/Users/UsersContainer";
 
 
 
 export type AppType ={
-  //  state: RootStateType
-  //  addNewPost:(postMessage:string)=>void
-   // updateNewPostText:(newText:string)=>void
- // store:StoreType
-  //  dispatch:(action:ActionTypes)=>void
+
 }
 export const App =(
     props:AppType
@@ -39,6 +36,7 @@ export const App =(
                   </Route>
 
                       <Route path="/dialogs/*" element= {<SuperDialogContainer  />}/>
+                      <Route path="/login" element={<Login />}/>
                       <Route path="/users" element={<UsersContainer />}/>
 
                   </Routes>

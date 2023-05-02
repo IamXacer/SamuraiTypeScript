@@ -4,7 +4,7 @@ import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {ActionTypes, PostType, ProfilePageType, StoreType} from "../redux/state";
 import { SuperMyPostContainer, SuperMyPostContainerType} from "./MyPosts/MyPostsContainer";
-import {mapStateToPropsType} from "./ProfileContainer";
+import {initStateType, ProfileType} from "../redux/profile-reducer";
 
 /*export type ProfileType ={
  //   profilePagestate:PostType[]
@@ -13,16 +13,20 @@ import {mapStateToPropsType} from "./ProfileContainer";
    // updateNewPostText:(newText:string)=>void
  //   dispatch:(action:ActionTypes)=>void
  // store:StoreType
+ // store:StoreType
 }*/
 /*export type ProfileType= {
     profile:null
 
 
 }*/
-export const Profile = (props:any) => {
+export const Profile = (props:ProfileType) => {
   return (
       <div className={s.profileWrapperContent}>
-          <ProfileInfo profile={props.profile}/>
+          <ProfileInfo profile={props.profile}
+                       statusss={props.statusss}
+                       updateStatus={props.updateStatus}
+          />
           <SuperMyPostContainer
               //store={props.store}
 

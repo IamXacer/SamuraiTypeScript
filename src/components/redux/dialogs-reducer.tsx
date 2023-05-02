@@ -1,5 +1,10 @@
 import React from "react";
-import {ActionTypes, DialogPageType, RootStateType, StoreType} from "./state";
+import {ActionTypes} from "./state";
+export type  DialogPageType = {
+    dialogs: DialogType[]
+    messages: MessageType[]
+
+}
 export type DialogType = {
     id: number,
     name: string,
@@ -25,26 +30,26 @@ const initState = {
         {id: 5, message: 'Redux'},
 
     ] as MessageType[],
-    newMessageText: '',
+
 }
 export type initStateType = typeof initState
 export const dialogsReducer = (state:initStateType = initState, action: ActionTypes): initStateType => {
     switch (action.type) {
-        case "UPDATE-NEW-MESSAGE-BODY":
+/*        case "UPDATE-NEW-MESSAGE-BODY":
             //state.newMessageText = action.body
-            return {...state,newMessageText:action.body}
+            return {...state,newMessageText:action.body}*/
         case "SEND_MESSAGE":
-            let body = state.newMessageText
-            state.newMessageText = ''
+            let body = action.newMassageBody
+          //  state.newMessageText = ''
            // state.messages.push({id: 6, message: body})
-            return {...state,messages:[...state.messages,{id: 6, message: body}],newMessageText :''}
+            return {...state,messages:[...state.messages,{id: 6, message: body}]}
         default:
             return state
     }
 }
-export const updateNewMesssageTextAC = (body: string) => {
+/*export const updateNewMesssageTextAC = (body: string) => {
     return {type: 'UPDATE-NEW-MESSAGE-BODY', body: body} as const
-}
-export const sendTextAC = (newMessageText: string) => {
-    return {type: 'SEND_MESSAGE', newMessageText: newMessageText} as const
+}*/
+export const sendTextAC = (newMassageBody:string) => {
+    return {type: 'SEND_MESSAGE', newMassageBody: newMassageBody} as const
 }

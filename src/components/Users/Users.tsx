@@ -29,7 +29,6 @@ export const Users = (props: SuperUserContainerType) => {
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
     }
-   const dispatch = useDispatch()
     return (
         <div>
             <div className={s.backgroundIMG}>

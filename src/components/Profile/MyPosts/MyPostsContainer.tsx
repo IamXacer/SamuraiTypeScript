@@ -60,21 +60,21 @@ export type SuperMyPostContainerType = mapStateToPropsType & mapDispatchToPropsT
 let mapStateToProps = (state:AppStateType):mapStateToPropsType => {
     return{
         profilePagestate:state.profileReducer,
-       // newPostText:state.profileReducer.newPostText
+      //newPostText:state.profileReducer.newPostText
     }
 }
 type mapDispatchToPropsType = {
-    updateNewPostText : (newPostText:string) =>void
-    addNewPost : (newPostText:string) =>void
+    //updateNewPostText : (newPostText:string) =>void
+    addNewPost : (addnewPostText:string) =>void
 }
 let mapDispatchToProps = (dispatch:Dispatch):mapDispatchToPropsType =>{
     return{
-        updateNewPostText : (newPostText:string) => {
+  /*      updateNewPostText : (newPostText:string) => {
              dispatch(updateNewPostTextAC(newPostText))
-        },
-        addNewPost : (newPostText:string) => {
+        },*/
+        addNewPost : (addnewPostText:string) => {
             //props.dispatch(props.newPostText)
-            dispatch(addPostAC(newPostText))
+            dispatch(addPostAC(addnewPostText))
         }
     }
 }

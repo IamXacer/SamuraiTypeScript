@@ -1,16 +1,11 @@
 import React, {ChangeEvent, useRef} from "react";
-import s from './Dialogs.module.css'
-import {NavLink} from "react-router-dom";
-import {
-    ActionTypes,
-    DialogPageType, RootStateType, StoreType,
-} from "../redux/state";
-import {sendTextAC, updateNewMesssageTextAC} from "../redux/dialogs-reducer";
+import {DialogPageType, sendTextAC} from "../redux/dialogs-reducer";
 import { Dialog } from "./Dialog";
 import StoreContex from "../../StoreContex";
 import {connect} from "react-redux";
 import {AppStateType} from "../redux/redux-store";
-import {Dispatch} from "redux";
+import {compose, Dispatch} from "redux";
+import {witchAutchRedirect} from "../../hoc/AutchRedirect";
 
 type DialogType = {
    // dialogsPage:DialogPageType
@@ -55,17 +50,20 @@ export type DialogsPropsType = mapStateToPropsType & mapDispatchToPropsType
 
 type mapStateToPropsType = {
     dialogsPage:DialogPageType
+
+
 }
 let mapStateToProps = (state:AppStateType):mapStateToPropsType => {
     return {
-        dialogsPage: state.dialogsReducer
+        dialogsPage: state.dialogsReducer,
+
     }
 }
 type mapDispatchToPropsType = {
-    updateNewMessageText:(newText:string)=>void
-    addNewDialog:(newMessageBody:string)=>void
+    //updateNewMessageText:(newText:string)=>void
+    addNewDialog:(newMassageBody:string)=>void
 }
-let mapDispatchToProps = (dispatch:Dispatch):mapDispatchToPropsType =>{
+/*let mapDispatchToProps = (dispatch:Dispatch):mapDispatchToPropsType =>{
     return {
         updateNewMessageText:(newText:string)=>{
             dispatch(updateNewMesssageTextAC(newText))
@@ -74,6 +72,20 @@ let mapDispatchToProps = (dispatch:Dispatch):mapDispatchToPropsType =>{
             dispatch(sendTextAC(newMessageBody))
         },
     }
-}
+}*/
+/*export default compose<React.ComponentType>(
+    connect(mapStateToProps,
+        {updateNewMessageText: updateNewMesssageTextAC,
+            addNewDialog:sendTextAC
+        }),
+    witchAutchRedirect
+)(Dialog)*/
 
-export const SuperDialogContainer = connect(mapStateToProps,mapDispatchToProps)(Dialog)
+let AutchRedirectComponent = witchAutchRedirect(Dialog)
+
+
+export const SuperDialogContainer = connect(mapStateToProps,
+    {
+        addNewDialog:sendTextAC
+    })
+(AutchRedirectComponent)

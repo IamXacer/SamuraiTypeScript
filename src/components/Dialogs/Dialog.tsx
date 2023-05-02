@@ -1,11 +1,9 @@
-import React, {ChangeEvent, useRef} from "react";
+import React, {ChangeEvent} from "react";
 import s from './Dialogs.module.css'
-import {
-    ActionTypes,
-    DialogPageType, StoreType,
-} from "../redux/state";
-import {sendTextAC, updateNewMesssageTextAC} from "../redux/dialogs-reducer";
 import {DialogsPropsType} from "./DialogsContainer";
+import {Navigate } from 'react-router-dom';
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
+
 
 // type DialogType = {
 //     dialogsPage:DialogPageType
@@ -17,7 +15,7 @@ import {DialogsPropsType} from "./DialogsContainer";
 // }
 
 export const Dialog = (props: DialogsPropsType) => {
-    let {messages, dialogs, newMessageText} = props.dialogsPage;
+    let {messages, dialogs} = props.dialogsPage;
 
     let messageElemets = messages.map(m=><div key={m.id} >{m.message}</div>)
     let dialogsElement = dialogs.map(d=><div key={d.id}>{d.name}</div>)
@@ -26,14 +24,13 @@ export const Dialog = (props: DialogsPropsType) => {
 
     const onNewMassageChange = (e:ChangeEvent<HTMLTextAreaElement>) => {
         let newText = e.currentTarget.value
-        props.updateNewMessageText(newText)
+      //  props.updateNewMessageText(newText)
         //  props.store.dispatch(updateNewMesssageTextAC(newText))
     }
-    const addDialog = () => {
-        props.addNewDialog(newMessageText)
-        // props.store.dispatch(sendTextAC(newMessageBody))
 
-    }
+const addNewMessage = (values:any) => {
+    props.addNewDialog(values.newMassageBody)
+}
     return (
         <div className={s.imgClas}>
             <div className={s.backgroundIMG}>
@@ -42,13 +39,30 @@ export const Dialog = (props: DialogsPropsType) => {
                 </div>
                 <div className={s.message}>
                     <div>{messageElemets}</div>
-                    <div><textarea value={newMessageText}
+        {/*            <div><textarea value={newMessageText}
                                    onChange={onNewMassageChange}
                                    placeholder={'Enter message'}></textarea></div>
-                    <div onClick={addDialog}><button>AddDialog</button></div>
+                    <div onClick={addDialog}><button>AddDialog</button></div>*/}
+<TextareaReduxForm onSubmit={addNewMessage}/>
+
                 </div>
 
             </div>
         </div>
     )
 }
+type TextareaFormType = {
+    newMassageBody:string
+}
+const TextareaForm : React.FC<InjectedFormProps<TextareaFormType>> = (props)=>{
+    return (
+    <form  onSubmit={props.handleSubmit}>
+        <div>
+            <Field name={'newMassageBody'} component={'input'}
+                placeholder={'Enter message'}></Field>
+        </div>
+        <div ><button>AddDialog</button></div>
+    </form>
+    )
+}
+const TextareaReduxForm =reduxForm<TextareaFormType>({form: 'Textarea'})(TextareaForm)
