@@ -10,6 +10,7 @@ import {
      unfollowSuccess
 } from "./users-reducer";
 import {setUserAuthDataAC} from "./auth-reducer";
+import { initializedSuccessAC } from "./app-reducer";
 
 export type StoreType = {
     _state:RootStateType
@@ -152,6 +153,7 @@ export type ActionTypes =
     |ReturnType<typeof setUserAuthDataAC>
     |ReturnType<typeof ToglefollowingInProgress>
     |ReturnType<typeof setStatusProfileAC>
+    |ReturnType<typeof initializedSuccessAC>
 
 
 export type MessageType = {

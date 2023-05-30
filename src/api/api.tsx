@@ -44,6 +44,12 @@ return  instance.get('/profile/status/'+userId)
 export const LoginAPI = {
     me () {
         return instance.get(`/auth/me`,)/*.then(response => response.data)*/
+    },
+    login(email:null,password:null,rememberMe=false) {
+        return instance.post(`/auth/login`,{email,password,rememberMe})
+    },
+    logout() {
+        return instance.delete(`/auth/login`)
     }
 }
 

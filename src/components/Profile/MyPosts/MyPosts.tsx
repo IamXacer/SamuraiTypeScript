@@ -44,6 +44,7 @@ export const MyPosts = (props:SuperMyPostContainerType) => {
 
     const onAddPost = (values:any) => {
         props.addNewPost(values.addnewPostText)
+        values.addnewPostText = ""
         //props.dispatch(props.newPostText)
         //props.dispatch(addPostAC(props.newPostText))
     }

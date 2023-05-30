@@ -3,6 +3,8 @@ import s from './Dialogs.module.css'
 import {DialogsPropsType} from "./DialogsContainer";
 import {Navigate } from 'react-router-dom';
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {Textarea} from "../FormsControls/FormsControls";
+import {maxLengthCreator, requiredField} from "../../utils/validators/validators";
 
 
 // type DialogType = {
@@ -30,6 +32,7 @@ export const Dialog = (props: DialogsPropsType) => {
 
 const addNewMessage = (values:any) => {
     props.addNewDialog(values.newMassageBody)
+    values.newMassageBody = ""
 }
     return (
         <div className={s.imgClas}>
@@ -54,12 +57,14 @@ const addNewMessage = (values:any) => {
 type TextareaFormType = {
     newMassageBody:string
 }
+const maxLengthCreator50 = maxLengthCreator(50)
 const TextareaForm : React.FC<InjectedFormProps<TextareaFormType>> = (props)=>{
     return (
     <form  onSubmit={props.handleSubmit}>
         <div>
-            <Field name={'newMassageBody'} component={'input'}
-                placeholder={'Enter message'}></Field>
+            <Field name={'newMassageBody'} component={Textarea}
+                placeholder={'Enter message'}validate={[requiredField,maxLengthCreator50]}
+            ></Field>
         </div>
         <div ><button>AddDialog</button></div>
     </form>

@@ -15,6 +15,14 @@ import s from "../Users/Users.module.css"
 import {Preloader} from "../common/Preloader/Preloader";
 import {witchAutchRedirect} from "../../hoc/AutchRedirect";
 import { compose } from "redux";
+import {
+  getCurrenPage,
+  getFollowingInProgress,
+  getIsFetching,
+  getPageSize,
+  getTotalUserCount,
+  getUsers
+} from "../redux/users-selectors";
 
 
 export type SuperUserContainerType = mapStateToPropsType & mapDispatchToPropsType
@@ -76,12 +84,12 @@ class UsersAPIComponent extends React.Component<SuperUserContainerType, UsersTyp
 let witchRedirect = witchAutchRedirect(UsersAPIComponent)
 let mapStateToProps = (state:AppStateType):mapStateToPropsType => {
   return{
-    users:state.userPage.users,
-    pageSize:state.userPage.pageSize,
-    totalUserCount:state.userPage.totalUserCount,
-    currenPage:state.userPage.currenPage,
-    isFetching:state.userPage.isFetching,
-    followingInProgress:state.userPage.followingInProgress
+    users:getUsers(state),
+    pageSize:getPageSize(state),
+    totalUserCount:getTotalUserCount(state),
+    currenPage:getCurrenPage(state),
+    isFetching:getIsFetching(state),
+    followingInProgress:getFollowingInProgress(state)
 
   }
 }
@@ -122,7 +130,7 @@ let mapStateToProps = (state:AppStateType):mapStateToPropsType => {
   getUsers:getUsersTC
 })(witchRedirect)*/
 export default compose<React.ComponentType>(connect(mapStateToProps, {
-  //witchRedirect,
+  witchRedirect,
   follow: followTC,
   unfollow: unfollowTC,
   setUser: setUsersAC,//

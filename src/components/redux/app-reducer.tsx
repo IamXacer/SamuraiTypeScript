@@ -3,37 +3,39 @@ import {ActionTypes} from "./state";
 import {AnyAction, Dispatch} from "redux";
 import {LoginAPI} from "../../api/api";
 import {stopSubmit} from "redux-form";
+import {getMeTC} from "./auth-reducer";
+import {ThunkAction} from "redux-thunk";
 import {AppThunkType} from "./redux-store";
 export type InitialStateType = {
-    userId: null,
-    email:null,
-    login:any,
-    isAuth:boolean,
-    logout:null
+    initialized: boolean,
 }
 let initialState = {
-    userId: null,
-    email: null,
-    login: null,
-    isAuth: false,
-    logout:null
+    initialized: false,
+
 }
-export const authReducer = (state:InitialStateType = initialState,action:ActionTypes):InitialStateType => {
+export const appReducer = (state:InitialStateType = initialState,action:ActionTypes):InitialStateType => {
   switch(action.type){
-      case 'SET_USER_DATA':
+      case 'INITIALIZED-SUCCESS':
           return {
-             ...state,...action.payload
+             ...state,
+              initialized:true
           }
       default:return state
   }
 }
 
-export const setUserAuthDataAC = ( userId: null, email: null, login: null,isAuth:boolean) => {
-  return {type:'SET_USER_DATA',payload: {userId, email, login,isAuth}} as const
+export const initializedSuccessAC = ( ) => {
+  return {type:'INITIALIZED-SUCCESS',payload: {}} as const
 }
-
+export const initializeApp = (): AppThunkType => (dispatch) => {
+  let promise = dispatch(getMeTC())
+    promise.then(()=>{
+        dispatch(initializedSuccessAC())
+    })
+}
+/*
 export const getMeTC = ()=>(dispatch:Dispatch)=>{
-   return  LoginAPI.me().then(res => {
+    LoginAPI.me().then(res => {
         if (res.data.resultCode === 0){
             let {id,email,login} = res.data.data
             dispatch(setUserAuthDataAC(id,email,login,true))
@@ -41,10 +43,12 @@ export const getMeTC = ()=>(dispatch:Dispatch)=>{
     })
 }
 
-export const login  = (email:null,password:null,rememberMe=false): AppThunkType=>
-    (dispatch)=>{
+export const login = (email:null,password:null,rememberMe=false)=>
+    (dispatch:Dispatch<AnyAction | any>)=>{
       //
-        LoginAPI.login(email,password,rememberMe).then(res => {
+
+
+    LoginAPI.login(email,password,rememberMe).then(res => {
         if (res.data.resultCode === 0){
             dispatch(getMeTC())
         }else {
@@ -62,3 +66,4 @@ export const logout= ()=>
             }
         })
     }
+*/

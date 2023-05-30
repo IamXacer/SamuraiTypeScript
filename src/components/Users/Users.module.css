@@ -46,3 +46,14 @@ display: inline-block;
     background-color: #8cc568;
     border:1px solid #6fa9c9;
 }
+.formSummaryError {
+    border: none;
+    color: #7c3a3a;
+    padding: 2px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+}
+
+

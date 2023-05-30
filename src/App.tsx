@@ -1,52 +1,62 @@
 import React from 'react';
 import './App.css';
-import {Header} from "./components/Header/Header";
 import {Nav} from "./components/Navbar/Nav";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import { Profile } from './components/Profile/Profile';
-import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
 import {SuperDialogContainer} from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
+import {connect} from "react-redux";
+import {getMeTC} from "./components/redux/auth-reducer";
+import {compose} from "redux";
+import {initializeApp} from "./components/redux/app-reducer";
+import {AppStateType} from "./components/redux/redux-store";
+import {Preloader} from "./components/common/Preloader/Preloader";
+import ProfileContainer, {withRouter} from "./components/Profile/ProfileContainer";
 
 
 
 export type AppType ={
 
 }
-export const App =(
-    props:AppType
-)=> {
+class  App extends React.Component<any, any>  {
    // const state = props.store.getState()
-  return (
-      <BrowserRouter>
-          <div className='app-wrapper'>
-              <HeaderContainer />
-              <Nav />
-              <div >
+    componentDidMount() {
+        console.log(this.props, "PROPS")
+        this.props.initializeApp();
+    }
 
-                  <Routes>
+    render (){
 
-             {/*  <Route path="/profile/:userId" element={<ProfileContainer/>}/>*/}
-                      <Route path={'/profile/:userId?'}>
-                      <Route index element={<ProfileContainer /*store={props.store} *//>}/>
-                      <Route path=':userId'
-                             element={<ProfileContainer /*store={props.store} *//>}/>
-                  </Route>
+        return (
+            <div className='app-wrapper'>
+                <HeaderContainer/>
+                <Nav/>
+                <div>
+                    <Routes>
+                        <Route path={'/profile/:userId?'}>
+                            <Route index element={<ProfileContainer /*store={props.store} *//>}/>
+                            <Route path=':userId'
+                                   element={<ProfileContainer /*store={props.store} *//>}/>
+                        </Route>
 
-                      <Route path="/dialogs/*" element= {<SuperDialogContainer  />}/>
-                      <Route path="/login" element={<Login />}/>
-                      <Route path="/users" element={<UsersContainer />}/>
+                        <Route path="/dialogs/*" element={<SuperDialogContainer/>}/>
+                        <Route path="/login" element={<Login/>}/>
+                        <Route path="/users" element={<UsersContainer/>}/>
 
-                  </Routes>
-              </div>
-          </div>
-      </BrowserRouter>
-/*
-
- */
-  );
+                    </Routes>
+                </div>
+            </div>
+        );}
 }
+ type mapStateToPropsType = {
+    initialized:boolean
+}
+const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
+    return {
+        initialized:state.appReducer.initialized
+    }
+}
+export default compose( connect(mapStateToProps,{initializeApp})(App))
 
 
