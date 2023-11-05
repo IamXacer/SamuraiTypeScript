@@ -1,5 +1,7 @@
 import {DialogPageType, dialogsReducer, sendTextAC} from "./dialogs-reducer"
-import {addPostAC, profileReducer, setStatusProfileAC, setUserProfileAC, updateNewPostTextAC} from "./profile-reducer"
+import {addPostAC, profileReducer, setStatusProfileAC, setUserProfileAC,
+/*    updateNewPostTextAC*/
+} from "./profile-reducer"
 import {sidebarReducer} from "./sidebar-reducer";
 import {
     followSuccess,
@@ -139,7 +141,7 @@ else if(action.type === 'UPDATE-NEW-MESSAGE-BODY'){
 
 
 export type ActionTypes =
-    ReturnType<typeof updateNewPostTextAC>
+    //ReturnType<typeof updateNewPostTextAC>
     |ReturnType<typeof addPostAC>
    // |ReturnType<typeof updateNewMesssageTextAC>
     |ReturnType<typeof sendTextAC>

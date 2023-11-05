@@ -53,16 +53,17 @@ type mapStateToPropsType = {
 
 
 }
+type mapDispatchToPropsType = {
+    //updateNewMessageText:(newText:string)=>void
+    addNewDialog:(newMassageBody:string)=>void
+}
 let mapStateToProps = (state:AppStateType):mapStateToPropsType => {
     return {
         dialogsPage: state.dialogsReducer,
 
     }
 }
-type mapDispatchToPropsType = {
-    //updateNewMessageText:(newText:string)=>void
-    addNewDialog:(newMassageBody:string)=>void
-}
+
 /*let mapDispatchToProps = (dispatch:Dispatch):mapDispatchToPropsType =>{
     return {
         updateNewMessageText:(newText:string)=>{

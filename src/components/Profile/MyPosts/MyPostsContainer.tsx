@@ -1,7 +1,9 @@
 import React from "react";
 import {Post} from "./Post/Post";
 import {ActionTypes, PostType, ProfilePageType, StoreType} from "../../redux/state";
-import {addPostAC, initStateType, updateNewPostTextAC} from "../../redux/profile-reducer";
+import {addPostAC, initStateType,
+  /*  updateNewPostTextAC*/
+} from "../../redux/profile-reducer";
 import {MyPosts} from "./MyPosts";
 import StoreContex from "../../../StoreContex";
 import {connect} from "react-redux";
@@ -67,15 +69,16 @@ type mapDispatchToPropsType = {
     //updateNewPostText : (newPostText:string) =>void
     addNewPost : (addnewPostText:string) =>void
 }
-let mapDispatchToProps = (dispatch:Dispatch):mapDispatchToPropsType =>{
+/*let mapDispatchToProps = (dispatch:Dispatch):mapDispatchToPropsType =>{
     return{
-  /*      updateNewPostText : (newPostText:string) => {
+  /!*      updateNewPostText : (newPostText:string) => {
              dispatch(updateNewPostTextAC(newPostText))
-        },*/
+        },*!/
         addNewPost : (addnewPostText:string) => {
             //props.dispatch(props.newPostText)
             dispatch(addPostAC(addnewPostText))
         }
     }
-}
-export const SuperMyPostContainer = connect(mapStateToProps,mapDispatchToProps)(MyPosts)
+}*/
+export const SuperMyPostContainer =
+    connect(mapStateToProps,{addNewPost:addPostAC})(MyPosts)

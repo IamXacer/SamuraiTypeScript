@@ -46,12 +46,12 @@ export const profileReducer = (state:initStateType=inirialState,action:ActionTyp
           /*state.posts.push(newPost)
           state.newPostText = ''*/
           return {...state,posts:[newPost,...state.posts] }
-     /* case "UPDATE-NEW-POST-TEXT":
-          console.log('from reducer ', action.newText)
-       /!*   state.newPostText = action.newText*!/
-          return {...state,newPostText: action.newText}*/
       case "SET_USER_PROFILE":
           return {...state,profile:action.profile}
+  /*     case "UPDATE-NEW-POST-TEXT":
+           console.log('from reducer ', action.newText)
+           state.newPostText = action.newText
+           return {...state,newPostText: action.newText}*/
       case 'SET_STATUS_PROFILE':
           return {...state,statusss:action.status}
       default: return state
@@ -61,10 +61,10 @@ export const profileReducer = (state:initStateType=inirialState,action:ActionTyp
 export const addPostAC = (addnewPostText:string) =>{
     return {type: 'ADD-POST',addnewPostText} as const
 }
-export const updateNewPostTextAC = (text:string) =>{
+/*export const updateNewPostTextAC = (text:string) =>{
     console.log('from AC ', text)
     return {type: 'UPDATE-NEW-POST-TEXT',newText:text} as const
-}
+}*/
 export const setUserProfileAC = (profile:ProfileType) =>{
     return {type: 'SET_USER_PROFILE',profile} as const
 }

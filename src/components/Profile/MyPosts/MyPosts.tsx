@@ -7,6 +7,7 @@ import { SuperMyPostContainerType} from "./MyPostsContainer";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {maxLengthCreator, requiredField} from "../../../utils/validators/validators";
 import {Textarea} from "../../FormsControls/FormsControls";
+import {addNewPostForm, TextareaFormType} from "./Post/MyPostForm";
 /*
 export type MessageType = {
     profilePagestate: PostType[]
@@ -16,11 +17,11 @@ export type MessageType = {
     dispatch:(action:ActionTypes)=>void
 //  store:StoreType
 }*/
-type TextareaFormType = {
+/*type TextareaFormType = {
     addnewPostText:string
-}
-const maxLengthCreator10 = maxLengthCreator(10)
-const addNewPostForm: React.FC<InjectedFormProps<TextareaFormType>>  = (props) => {
+}*/
+//const maxLengthCreator10 = maxLengthCreator(10)
+/*const addNewPostForm: React.FC<InjectedFormProps<TextareaFormType>>  = (props) => {
     return(
         <form onSubmit={props.handleSubmit}>
 
@@ -32,8 +33,9 @@ const addNewPostForm: React.FC<InjectedFormProps<TextareaFormType>>  = (props) =
             <div> <button>AddPost</button></div>
         </form>
     )
-}
-const AddNewPostReduxForm =reduxForm<TextareaFormType>({form: 'ProfileAddNewPostForm'})(addNewPostForm)
+}*/
+const AddNewPostReduxForm =reduxForm<TextareaFormType>
+({form: 'ProfileAddNewPostForm'})(addNewPostForm)
 export const MyPosts = (props:SuperMyPostContainerType) => {
     let {posts} = props.profilePagestate;
 
@@ -41,8 +43,10 @@ export const MyPosts = (props:SuperMyPostContainerType) => {
         <Post id={postmassage.id} message={postmassage.message}
               likeCount={postmassage.likesCount}/>)
 
-
-    const onAddPost = (values:any) => {
+    interface FormValues {
+        addnewPostText: string;
+    }
+    const onAddPost = (values:FormValues) => {
         props.addNewPost(values.addnewPostText)
         values.addnewPostText = ""
         //props.dispatch(props.newPostText)
@@ -66,3 +70,4 @@ export const MyPosts = (props:SuperMyPostContainerType) => {
 
   )
 }
+
