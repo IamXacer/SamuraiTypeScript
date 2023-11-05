@@ -29,11 +29,13 @@ export const Dialog = (props: DialogsPropsType) => {
       //  props.updateNewMessageText(newText)
         //  props.store.dispatch(updateNewMesssageTextAC(newText))
     }
-
-const addNewMessage = (values:any) => {
-    props.addNewDialog(values.newMassageBody)
-    values.newMassageBody = ""
-}
+    interface FormValues {
+        newMassageBody: string;
+    }
+    const addNewMessage = (values: FormValues) => {
+        props.addNewDialog(values.newMassageBody);
+        values.newMassageBody = ""; // Это может вызвать ошибку, так как свойство только для чтения
+    }
     return (
         <div className={s.imgClas}>
             <div className={s.backgroundIMG}>
@@ -70,4 +72,5 @@ const TextareaForm : React.FC<InjectedFormProps<TextareaFormType>> = (props)=>{
     </form>
     )
 }
-const TextareaReduxForm =reduxForm<TextareaFormType>({form: 'Textarea'})(TextareaForm)
+const TextareaReduxForm = reduxForm<TextareaFormType>
+({form: 'Textarea'})(TextareaForm)
