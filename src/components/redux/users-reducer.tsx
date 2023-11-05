@@ -108,10 +108,10 @@ export const ToglefollowingInProgress = (isFetching:boolean, userId:string) => {
     return {type:'FOLOWING_PROGRESS',isFetching, userId} as const
 }
 
-export const getUsersTC =(currenPage:number,pageSize:number)=> {return(dispatch:Dispatch<ActionTypes>) => {
-    dispatch(setCurrentAC(currenPage))
+export const getUsersTC =(page:number,pageSize:number)=> {return(dispatch:Dispatch<ActionTypes>) => {
+    dispatch(setCurrentAC(page))
     dispatch(ToggleFeathingAC(true))
-    usersAPI.getUsers(currenPage,pageSize).then(data => {
+    usersAPI.getUsers(page,pageSize).then(data => {
         dispatch(ToggleFeathingAC(false))
         dispatch(setUsersAC(data.items))
        dispatch(setUsersTotalCountAC(data.totalCount))

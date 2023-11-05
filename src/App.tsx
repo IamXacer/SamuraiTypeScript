@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {FC} from 'react';
 import './App.css';
 import {Nav} from "./components/Navbar/Nav";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {Route, Routes, useParams} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
 import {SuperDialogContainer} from "./components/Dialogs/DialogsContainer";
@@ -12,7 +12,8 @@ import {compose} from "redux";
 import {initializeApp} from "./components/redux/app-reducer";
 import {AppStateType} from "./components/redux/redux-store";
 import {Preloader} from "./components/common/Preloader/Preloader";
-import ProfileContainer, {withRouter} from "./components/Profile/ProfileContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
+
 
 
 
@@ -57,6 +58,7 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
         initialized:state.appReducer.initialized
     }
 }
-export default compose( connect(mapStateToProps,{initializeApp})(App))
+
+export default compose(connect(mapStateToProps,{initializeApp})(App))
 
 

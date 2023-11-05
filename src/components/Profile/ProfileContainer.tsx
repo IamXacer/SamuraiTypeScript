@@ -47,6 +47,7 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
         profile: state.profileReducer.profile,
         status: state.profileReducer.statusss
+
     }
 }
 export default compose<React.ComponentType>(
