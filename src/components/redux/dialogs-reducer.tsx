@@ -39,10 +39,11 @@ export const dialogsReducer = (state:initStateType = initState, action: ActionTy
             //state.newMessageText = action.body
             return {...state,newMessageText:action.body}*/
         case "SEND_MESSAGE":
-            let body = action.newMassageBody
+            let body = action.newMassageBodys
           //  state.newMessageText = ''
            // state.messages.push({id: 6, message: body})
             return {...state,messages:[...state.messages,{id: 6, message: body}]}
+
         default:
             return state
     }
@@ -51,5 +52,5 @@ export const dialogsReducer = (state:initStateType = initState, action: ActionTy
     return {type: 'UPDATE-NEW-MESSAGE-BODY', body: body} as const
 }*/
 export const sendTextAC = (newMassageBody:string) => {
-    return {type: 'SEND_MESSAGE', newMassageBody: newMassageBody} as const
+    return {type: 'SEND_MESSAGE', newMassageBodys: newMassageBody} as const
 }
