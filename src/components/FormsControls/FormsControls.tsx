@@ -3,23 +3,25 @@ import s from './FormControls.module.css'
 
 const FormControl: React.FC<TextareaProps> = ({ input, meta
                                                   ,child, ...props }) =>{
-    const hasError = meta.touched && meta.error
+  const hasError = meta.touched && meta.error
     return (
         <div className={s.formControl + ' ' +(hasError? s.error : '' )} >
             <div>
            {/*     <div><textarea {...input} {...props} /></div>*/}
                 {props.children}
             </div>
-            <div >{hasError && <span>{meta.error}</span>}</div>
+            <div >{
+                hasError ? <span>{meta.error}</span> : ''}</div>
         </div>
     );
 }
 interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
     input: InputProps;
     meta: MetaProps;
-    child:any
+    child:React.ReactNode
 }
 export const Textarea: React.FC<TextareaProps> = (props) => {
+debugger
     const { input, meta,child, ...restprops } = props
   return <FormControl {...props}><textarea {...input} {...restprops} /></FormControl>
 };
@@ -37,7 +39,7 @@ export const Textarea: React.FC<TextareaProps> = (props) => {
 interface inputProps {
     input: any;
     meta: any;
-    child:any
+    child:React.ReactNode
 }
 export const Input: React.FC<inputProps> = (props) => {
     const { input, meta,child, ...restprops } = props

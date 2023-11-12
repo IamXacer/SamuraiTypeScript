@@ -41,7 +41,7 @@ export const getMeTC = ()=>(dispatch:Dispatch)=>{
     })
 }
 
-export const login  = (email:null,password:null,rememberMe=false): AppThunkType=>
+export const login  = (email:null,password:null,rememberMe:false): AppThunkType=>
     (dispatch)=>{
       //
         LoginAPI.login(email,password,rememberMe).then(res => {
