@@ -1,8 +1,7 @@
 import React, {MouseEventHandler} from "react";
 import s from './Header.module.css'
-import {NavLink} from "react-router-dom";
+import {Navigate, NavLink} from "react-router-dom";
 import {MapStatePropsType} from "./HeaderContainer";
-import {logout} from "../redux/auth-reducer";
 
 export const Header = (props:MapStatePropsType) => {
   /*  const LoginClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -16,8 +15,8 @@ export const Header = (props:MapStatePropsType) => {
      <div className={s.loginBlock}>
          {props.isAuth ?
             <div> {props.login}
-                <button onClick={props.logout ? props.logout : () => {}}>Log out</button>
-
+                <button onClick={props.logoutTC ? props.logoutTC : () => {}}>Log out</button>
+            {/*    <Navigate to={'/profile'}/>*/}
                 {/* <button onClick={props.logout}>Log out</button>*/}
             </div>
              :<NavLink to={'/login'}>Login</NavLink >}

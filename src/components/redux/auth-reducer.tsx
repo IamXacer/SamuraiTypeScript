@@ -28,9 +28,8 @@ export const authReducer = (state:InitialStateType = initialState,action:ActionT
   }
 }
 
-export const setUserAuthDataAC = ( userId: null, email: null, login: null,isAuth:boolean) => {
-  return {type:'SET_USER_DATA',payload: {userId, email, login,isAuth}} as const
-}
+export const setUserAuthDataAC = (email:null,userId:null,login:null,isAuth:boolean)=>{
+    return  {type:'SET_USER_DATA',payload: {email, userId, login, isAuth}}as const }
 
 export const getMeTC = ()=>(dispatch:Dispatch)=>{
    return  LoginAPI.me().then(res => {
@@ -41,20 +40,19 @@ export const getMeTC = ()=>(dispatch:Dispatch)=>{
     })
 }
 
-export const login  = (email:null,password:null,rememberMe:false): AppThunkType=>
+export const login  = (email:null,password:null,rememberMe:boolean): AppThunkType=>
     (dispatch)=>{
       //
-        LoginAPI.login(email,password,rememberMe).then(res => {
-        if (res.data.resultCode === 0){
-            dispatch(getMeTC())
-        }else {
-            let message = res.data.messages.length > 0 ? res.data.messages[0] :"Seme error"
-            dispatch(stopSubmit('Login',{_error:message}))
-        }
-
-    })
+        LoginAPI.login(email,password,rememberMe).then(res=>{
+           if(res.data.resultCode === 0){
+               dispatch(getMeTC())
+                          }else {
+               let message = res.data.messages.length > 0 ? res.data.messages[0] :"Seme error"
+               dispatch(stopSubmit("Login",{_error:message}))
+           }
+        })
 }
-export const logout= ()=>
+export const logoutTC= ()=>
     (dispatch:Dispatch)=>{
         LoginAPI.logout().then(res => {
             if (res.data.resultCode === 0){

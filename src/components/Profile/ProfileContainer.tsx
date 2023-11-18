@@ -18,14 +18,12 @@ export function withRouter(Children: any) {
 class ProfileContainer extends React.Component<any, initStateType> {
     componentDidMount() {
         let userId = this.props.match.params.userId
-        if (!userId) {
-            userId = 1049
+        debugger
+        if (!userId ) {
+            userId = this.props.authorizedUserId
         }
         this.props.getProfileTC(userId)
         this.props.getProfileStatusTC(userId)
-        /*   usersAPI.getProfile(userId).then(res => {
-               this.props.setUserProfileAC(res.data)
-           })*/
     }
 
     render() {
@@ -38,20 +36,26 @@ class ProfileContainer extends React.Component<any, initStateType> {
         )
     }
 }
+//let witchRedirect = witchAutchRedirect(ProfileContainer)
 
 export type mapStateToPropsType = {
     profile: any,
-    status:string
+    status:string,
+    authorizedUserId:null,
+    isAuth:boolean
 }
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
         profile: state.profileReducer.profile,
-        status: state.profileReducer.statusss
+        status: state.profileReducer.statusss,
+        authorizedUserId:state.auth.userId,
+        isAuth:state.auth.isAuth
 
     }
 }
 export default compose<React.ComponentType>(
     connect(mapStateToProps, {
+     //   witchRedirect,
         getProfileTC,getProfileStatusTC,updateStatus}),
     withRouter,
   witchAutchRedirect,

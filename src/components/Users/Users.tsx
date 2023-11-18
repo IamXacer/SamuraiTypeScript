@@ -39,7 +39,7 @@ export const Users = (props: SuperUserContainerType) => {
                                 onPageChanged(p)
                             }}
                             className={props.currenPage === p ? s.selectedPage : ''}>
-<button>{p}</button>
+<li>{p}</li>
                     </span>
                     })}
                 </div>

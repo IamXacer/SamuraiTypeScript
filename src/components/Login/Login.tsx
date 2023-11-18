@@ -6,8 +6,7 @@ import {requiredField} from "../../utils/validators/validators";
 import {connect} from "react-redux";
 import {InitialStateType, login} from "../redux/auth-reducer";
 import {witchAutchRedirect} from "../../hoc/AutchRedirect";
-import {Navigate, Route} from "react-router-dom";
-import ProfileContainer from "../Profile/ProfileContainer";
+import {Navigate} from "react-router-dom";
 import {AppStateType} from "../redux/redux-store";
 
 type FormDataType = {
@@ -27,7 +26,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> =(props) => {
                             type={'password'}
                             validate={[requiredField]}
                             component={Input}/></div>
-                <div>
+                <div className={s.checkboxContainer}>
                     <Field  component={Input} name={'rememberMe'}
                               type={"checkbox"}/> rememberMe
                 </div>
@@ -42,20 +41,15 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> =(props) => {
             </form>
         </div>)
 }
-const LoginReduxForm =reduxForm<FormDataType>({form: 'Login'})(LoginForm)
+const LoginReduxForm = reduxForm<FormDataType>({form: 'Login'})(LoginForm)
 const Login = (props:any) => {
     const onSubmit = (formData:FormDataType) => {
-        props.login(formData.email,formData.password,formData.rememberMe)
+        props.login(formData.email, formData.password, formData.rememberMe)
        // console.log(formData)
     }
-    if (props.isAuth) {
-        // <Route path={'/profile/:userId?'}>
-        //     <Route index element={<ProfileContainer /*store={props.store} *//>}/>
-        //     <Route path=':userId'
-        //            element={<ProfileContainer /*store={props.store} *//>}/>
-        // </Route>
-        return <Navigate to={'/profile'}/>
-    }
+if (props.isAuth){
+ return   <Navigate to={'/profile'}/>
+}
     return (
         <div>
 
@@ -65,7 +59,7 @@ const Login = (props:any) => {
 
 }
 type mapStateToPropsType = {
-    isAutch:InitialStateType
+    isAuth:InitialStateType
 
 
 }
@@ -73,6 +67,6 @@ let AutchRedirectComponent = witchAutchRedirect(Login)
 const mapStateToProps = (state:AppStateType)=>({
     isAuth:state.auth.isAuth
 })
-export default connect (mapStateToProps,{login}) (Login)
+export default connect (mapStateToProps,{login,AutchRedirectComponent}) (Login)
 
 

@@ -20,11 +20,15 @@
     background-image: url("https://klike.net/uploads/posts/2022-11/1669446615_3-55.jpg");
 }
 .message {
+    display: flex; /* использовать flexbox */
+    list-style-type: none; /* убрать стандартные маркеры для списка */
+    padding: 0; /* убрать внутренний отступ у списка */
     padding-right: 10px;
     padding-top: 7px;
     font-family: Arial, sans-serif;
     font-size: 0.9em;
   color: #76d2d2;
+
 }
 .button {
 display: inline-block;
@@ -48,12 +52,15 @@ display: inline-block;
 }
 .formSummaryError {
     border: none;
-    color: #7c3a3a;
+    color: #f83030;
     padding: 2px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     margin: 4px 2px;
 }
-
+.checkboxContainer{
+    display: flex; /* Используем flex-контейнер для расположения элементов в строку */
+    align-items: center;
+}
 
