@@ -42,6 +42,7 @@ export const Users = (props: SuperUserContainerType) => {
                     })}*/}
                     <Paginator currenPage={props.currenPage}
                     totalUserCount={props.totalUserCount}pageSize={props.pageSize}
+
                                isFetching={props.isFetching} users={props.users}
                                followingInProgress={props.followingInProgress}
                     />
