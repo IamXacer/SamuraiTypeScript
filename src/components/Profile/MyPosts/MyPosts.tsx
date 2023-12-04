@@ -1,12 +1,10 @@
-import React, {ChangeEvent, MouseEvent} from "react";
-import s from './MyPosts.module.css'
+import React from "react";
+
 import {Post} from "./Post/Post";
-import {ActionTypes, PostType} from "../../redux/state";
+
 import {PostIcon} from "./Post/PostIcon";
 import { SuperMyPostContainerType} from "./MyPostsContainer";
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {maxLengthCreator, requiredField} from "../../../utils/validators/validators";
-import {Textarea} from "../../FormsControls/FormsControls";
+import {reduxForm} from "redux-form";
 import {addNewPostForm, TextareaFormType} from "./Post/MyPostForm";
 /*
 export type MessageType = {
@@ -36,7 +34,8 @@ export type MessageType = {
 }*/
 const AddNewPostReduxForm =reduxForm<TextareaFormType>
 ({form: 'ProfileAddNewPostForm'})(addNewPostForm)
-export const MyPosts = (props:SuperMyPostContainerType) => {
+export const MyPosts = React.memo((props:SuperMyPostContainerType) => {
+    console.log('ReNderYo')
     let {posts} = props.profilePagestate;
 
     const post = props.profilePagestate.posts.map(postmassage =>
@@ -52,22 +51,21 @@ export const MyPosts = (props:SuperMyPostContainerType) => {
         //props.dispatch(props.newPostText)
         //props.dispatch(addPostAC(props.newPostText))
     }
-/*const onchangeHandler = (e:ChangeEvent<HTMLTextAreaElement>) => {
- let text = e.currentTarget.value
-    //props.dispatch(updateNewPostTextAC(text))
-    props.updateNewPostText(text)
-    }*/
 
+const onDeletePost = (postId:string)=>{
+props.deletePost(postId)
+}
   return (
      <div>
 
          <div>My Post</div>
 <AddNewPostReduxForm onSubmit={onAddPost}/>
+
          <div>{post}</div>
          <PostIcon/>
      </div>
 
 
   )
-}
+})
 

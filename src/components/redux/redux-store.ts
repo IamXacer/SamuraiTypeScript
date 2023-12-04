@@ -13,7 +13,7 @@ export const rootReducer = combineReducers({
     userPage:userReducer,
     auth:authReducer,
     form:formReducer,
-    appReducer:appReducer
+    app:appReducer
    // sidebarReducer:sidebarReducer,
     })
 

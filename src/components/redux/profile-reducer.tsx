@@ -2,6 +2,7 @@ import React from "react";
 import {ActionTypes, PostType, ProfilePageType, RootStateType} from "./state";
 import {Dispatch} from "redux";
 import {profileAPI, usersAPI} from "../../api/api";
+//import {profileAPI, usersAPI} from "../../api/api";
 export type postsType ={
     id: string,
     message:string,
@@ -45,15 +46,13 @@ export const profileReducer = (state:initStateType=inirialState,action:ActionTyp
           }
           /*state.posts.push(newPost)
           state.newPostText = ''*/
-          return {...state,posts:[newPost,...state.posts] }
+          return {...state,posts:[newPost,...state.posts]}
       case "SET_USER_PROFILE":
-          return {...state,profile:action.profile}
-  /*     case "UPDATE-NEW-POST-TEXT":
-           console.log('from reducer ', action.newText)
-           state.newPostText = action.newText
-           return {...state,newPostText: action.newText}*/
+          return {...state,profile: action.profile}
       case 'SET_STATUS_PROFILE':
           return {...state,statusss:action.status}
+      case "DELETE-POST" :
+          return {...state,posts:state.posts.filter(el=>el.id != action.postId)}
       default: return state
   }
 
@@ -71,9 +70,9 @@ export const setUserProfileAC = (profile:ProfileType) =>{
 export const setStatusProfileAC = (status:string) =>{
     return {type: 'SET_STATUS_PROFILE',status} as const
 }
-/*export const updateStatusProfileAC = (statusText:string) =>{
-    return {type: 'SET_STATUS_PROFILE',statusText} as const
-}*/
+export const deletePostAC = (postId:string) => {
+  return {type:'DELETE-POST',postId} as const
+}
 
 export const getProfileTC =(userId:string)=>(dispatch:Dispatch)=>{
     usersAPI.getProfile(userId).then(res => {

@@ -29,6 +29,10 @@ class  App extends React.Component<any, any>  {
 
     render (){
 
+            if(!this.props.initialized){
+          return      <Preloader/>
+            }
+
         return (
             <div className='app-wrapper'>
                 <HeaderContainer/>
@@ -36,7 +40,7 @@ class  App extends React.Component<any, any>  {
                 <div>
                     <Routes>
                         <Route path={'/profile/:userId?'}>
-                            <Route index element={<ProfileContainer /*store={props.store} *//>}/>
+                           <Route index element={<ProfileContainer /*store={props.store} *//>}/>
                             <Route path=':userId'
                                    element={<ProfileContainer /*store={props.store} *//>}/>
                         </Route>
@@ -55,10 +59,11 @@ class  App extends React.Component<any, any>  {
 }
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
-        initialized:state.appReducer.initialized
+        initialized:state.app.initialized
     }
 }
 
-export default compose(connect(mapStateToProps,{initializeApp})(App))
+export default compose(connect(mapStateToProps,
+    {initializeApp})(App))
 
 

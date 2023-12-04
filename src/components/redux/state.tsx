@@ -1,6 +1,7 @@
 import {DialogPageType, dialogsReducer, sendTextAC} from "./dialogs-reducer"
-import {addPostAC, profileReducer, setStatusProfileAC, setUserProfileAC,
-/*    updateNewPostTextAC*/
+import {
+    addPostAC, deletePostAC, profileReducer, setStatusProfileAC, setUserProfileAC,
+    /*    updateNewPostTextAC*/
 } from "./profile-reducer"
 import {sidebarReducer} from "./sidebar-reducer";
 import {
@@ -156,6 +157,7 @@ export type ActionTypes =
     |ReturnType<typeof ToglefollowingInProgress>
     |ReturnType<typeof setStatusProfileAC>
     |ReturnType<typeof initializedSuccessAC>
+    |ReturnType<typeof deletePostAC>
 
 
 export type MessageType = {

@@ -21,7 +21,6 @@ interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement
     child:React.ReactNode
 }
 export const Textarea: React.FC<TextareaProps> = (props) => {
-debugger
     const { input, meta,child, ...restprops } = props
   return <FormControl {...props}><textarea {...input} {...restprops} /></FormControl>
 };

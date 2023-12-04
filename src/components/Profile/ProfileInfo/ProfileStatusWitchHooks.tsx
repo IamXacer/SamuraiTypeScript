@@ -5,10 +5,19 @@ type ProfileStatusProps = {
 }
 export const ProfileStatusWitchHooks = (props:ProfileStatusProps)=> {
     let [editMode,SetEditMode] = useState(false)
-    let [status, SetStatus] = useState(props.status)
-    useEffect(()=>{
-        SetStatus(props.status)
-    },[props.status])
+    let [status, setStatus] = useState(props.status)
+
+    useEffect(() => {
+        const raw = localStorage.getItem('status');
+        if (raw) {
+            setStatus((raw));
+        }
+    }, []);
+
+    useEffect(() => {
+    localStorage.setItem('status',(status))
+    }, [status]);
+
     const activateEditMode = () => {
         SetEditMode(true)
     }
@@ -16,20 +25,20 @@ export const ProfileStatusWitchHooks = (props:ProfileStatusProps)=> {
         SetEditMode(false)
         props.updateStatus(status)
     }
-const onStatusChange = (e:ChangeEvent<HTMLInputElement>) => {
-    SetStatus(e.currentTarget.value)
+const onStatusChange = (event:ChangeEvent<HTMLInputElement>) => {
+    setStatus(event.currentTarget.value)
 }
     return (
             <div>
                 {!editMode &&
                     <div>
-                        <span onDoubleClick={activateEditMode}>{props.status || '----'}</span>
+                        <span onDoubleClick={activateEditMode}>{status || '----'}</span>
                     </div>
                 }
                 {editMode &&
                 <div>
                     <input autoFocus={true} onBlur={deactivateEditMode} onChange={onStatusChange}
-                    value={status}/>
+                   value={status} />
                 </div>
                 }
             </div>

@@ -4,14 +4,18 @@
 
 }
 .container{
+
     display: grid;
     grid-template-columns: 2fr 10fr;
 }
 
 .dialogsItems  {
+    font-weight: bold;
+    margin-bottom: 5px;
     padding: 2px;
     color: #8a4141;
 }
+
 .backgroundIMG {
 
     width: 1680px;
@@ -20,7 +24,7 @@
     background-image: url("https://klike.net/uploads/posts/2022-11/1669446615_3-55.jpg");
 }
 .message {
-    display: flex; /* использовать flexbox */
+    display: flex;
     list-style-type: none; /* убрать стандартные маркеры для списка */
     padding: 0; /* убрать внутренний отступ у списка */
     padding-right: 10px;
@@ -64,3 +68,13 @@ display: inline-block;
     align-items: center;
 }
 
+.location {
+    margin-bottom: 5px;
+    padding: 2px;
+    font-style: italic;
+    color: #555;
+    margin-top: 5px; ;
+}
+.buttonContainer {
+    margin-left: auto;
+}

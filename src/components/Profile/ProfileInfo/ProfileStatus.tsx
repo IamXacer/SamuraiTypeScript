@@ -9,20 +9,16 @@ export class ProfileStatus extends React.Component<ProfileStatusProps, any> {
         status:''
     }
     activateEditMode =()=>{
-        this.setState({
-            editMode: true,
-        })
+       this.setState({editMode:true})
     }
     deactivateEditMode = ()=>{
-        this.setState({
-            editMode: false
-        })
+    this.setState({editMode:false})
         this.props.updateStatus(this.state.status)
     }
     onStatusChange =(e:ChangeEvent<HTMLInputElement>)=>{
-        this.setState({
-            status:e.currentTarget.value
-        })
+ this.setState({
+     state:e.currentTarget.value
+ })
     }
     componentDidUpdate(prevProps: Readonly<ProfileStatusProps>, prevState: Readonly<any>, snapshot?: any) {
         if(prevProps.status !== this.props.status){

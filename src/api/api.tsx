@@ -1,4 +1,3 @@
-import React from "react";
 import axios from "axios";
 
 
@@ -14,7 +13,6 @@ export const usersAPI = {
     getUsers: (currenPage = 1, pageSize = 10) => {
         return instance.get(`users?page=${currenPage}&count=${pageSize}`)
             .then(res => res.data)
-
     },
 
     unfollow: (userId: string) => {

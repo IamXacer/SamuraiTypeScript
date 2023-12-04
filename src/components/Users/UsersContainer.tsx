@@ -2,12 +2,12 @@ import React from "react";
 import { connect } from "react-redux";
 import {AppStateType} from "../redux/redux-store";
 import {
-   followTC, getUsersTC,
+  followTC, getUsersTC, onPageChengeTC,
   setCurrentAC,
   setUsersAC,
   setUsersTotalCountAC,
   ToggleFeathingAC, ToglefollowingInProgress,
-   unfollowTC,
+  unfollowTC,
   UsersType
 } from "../redux/users-reducer";
 import {Users} from "./Users";
@@ -44,21 +44,31 @@ type mapDispatchToPropsType = {
    tofleIsFeathing:(isFetching:boolean)=>void
   ToglefollowingInProgress:(isFetching:boolean, userId:string)=>void
   getUsers:(currenPage:number,pageSize:number)=>void
+  onPageChengeTC: (pageNumber: number, pageSize: number) => void;
 
 }
 class UsersAPIComponent extends React.Component<SuperUserContainerType, UsersType> {
   componentDidMount() {
     this.props.getUsers(this.props.currenPage,this.props.pageSize)
+
   }
 
      onPageChanged = (pageNumber:number)=>{
        this.props.getUsers(pageNumber,this.props.pageSize)
 
      }
+  /*onPageChenges= (pageNumber:number)=>{
+    this.props.getUsers(pageNumber,this.props.pageSize)
+
+  }*/
+  onPageChenges = (pageNumber: number) => {
+    // Вызываем onPageChengeTC, передавая pageNumber и pageSize
+    this.props.onPageChengeTC(pageNumber, this.props.pageSize);
+  }
+
   render (){
     return <div className={s.backgroundIMG}>
-      {this.props.isFetching ? <Preloader/>
-          :<Users
+      {this.props.isFetching ? <Preloader/> :<Users
               totalUserCount={this.props.totalUserCount}
               users={this.props.users}
               currenPage={this.props.currenPage}
@@ -70,7 +80,7 @@ class UsersAPIComponent extends React.Component<SuperUserContainerType, UsersTyp
               setCurrentPage={this.props.setCurrentPage}
               isFetching={this.props.isFetching}
               tofleIsFeathing={this.props.tofleIsFeathing}
-
+              onPageChengeTC={this.props.onPageChengeTC}
               followingInProgress={this.props.followingInProgress}
               ToglefollowingInProgress={this.props.ToglefollowingInProgress}
               getUsers={this.props.getUsers}
@@ -89,46 +99,11 @@ let mapStateToProps = (state:AppStateType):mapStateToPropsType => {
     totalUserCount:getTotalUserCount(state),
     currenPage:getCurrenPage(state),
     isFetching:getIsFetching(state),
-    followingInProgress:getFollowingInProgress(state)
+    followingInProgress:getFollowingInProgress(state),
+
 
   }
 }
-/*let WitchUrlDataContainerComponent =  withRouter(AutchRedirectComponent)*/
-/*let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
-  return {
-    follow: (userId: number) => {
-      dispatch(FollowAC(userId))
-    },
-    unfollow: (userId: number) => {
-      dispatch(ufollowAC(userId))
-    },
-    setUser: (users: UsersType[]) => {
-      dispatch(setUsersAC(users))
-    },
-    setCurrentPage: (pageNumber: number) => {
-      dispatch(setCurrentAC(pageNumber))
-    },
-    setTotalUserCount: (totalCount: number) => {
-      dispatch(setUsersTotalCountAC(totalCount))
-    },
-    tofleIsFeathing: (isFetching: boolean) => {
-      dispatch(ToggleFeathingAC(isFetching))
-    }
-
-  }
-}*/
-
-
-/*export const UsersContainer = connect(mapStateToProps, {
-  follow: followTC,
-  unfollow: unfollowTC,
-  setUser: setUsersAC,//
-  setCurrentPage: setCurrentAC,
-  setTotalUserCount: setUsersTotalCountAC,//
-  tofleIsFeathing: ToggleFeathingAC,//
-  ToglefollowingInProgress,
-  getUsers:getUsersTC
-})(witchRedirect)*/
 export default compose<React.ComponentType>(connect(mapStateToProps, {
   witchRedirect,
   follow: followTC,
@@ -139,5 +114,6 @@ export default compose<React.ComponentType>(connect(mapStateToProps, {
   tofleIsFeathing: ToggleFeathingAC,//
   ToglefollowingInProgress,
   getUsers:getUsersTC,
-  witchAutchRedirect
+  witchAutchRedirect,
+  onPageChenges:onPageChengeTC,
 }))(UsersAPIComponent)
