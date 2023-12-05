@@ -12,7 +12,7 @@ export const ProfileInfo = (props:ProfileType) => {
     return (
 
         <div className={s.profileWrapperContent}>
-            <div><img src='https://cs12.pikabu.ru/post_img/big/2020/05/12/9/1589296651155220841.jpg'/></div>
+            <div className={s.impSize}><img src='https://cs12.pikabu.ru/post_img/big/2020/05/12/9/1589296651155220841.jpg'/></div>
             <div><img src={props.profile.photos?.large}/></div>
             <ProfileStatusWitchHooks status={props.statusss} updateStatus={props.updateStatus} />
             <div>{props.profile.aboutMe}</div>

@@ -74,20 +74,22 @@ export const deletePostAC = (postId:string) => {
   return {type:'DELETE-POST',postId} as const
 }
 
-export const getProfileTC =(userId:string)=>(dispatch:Dispatch)=>{
-    usersAPI.getProfile(userId).then(res => {
-        dispatch(setUserProfileAC(res.data))
-    })
+export const getProfileTC =(userId:string)=> async (dispatch:Dispatch)=>{
+    let response = await
+    usersAPI.getProfile(userId)
+    dispatch(setUserProfileAC(response.data))
+   }
+export const getProfileStatusTC =(userId:string)=>async(dispatch:Dispatch)=>{
+    let response = await
+    profileAPI.getStatus(userId)
+        dispatch(setStatusProfileAC(response.data))
+
 }
-export const getProfileStatusTC =(userId:string)=>(dispatch:Dispatch)=>{
-    profileAPI.getStatus(userId).then(res => {
-        dispatch(setStatusProfileAC(res.data))
-    })
-}
-export const updateStatus =(status:string)=>(dispatch:Dispatch)=>{
-    profileAPI.updateStatus(status).then(res => {
-        if(res.data.resultCode === 0) {
+export const updateStatus =(status:string)=>async(dispatch:Dispatch)=>{
+    let response = await
+    profileAPI.updateStatus(status)
+        if(response.data.resultCode === 0) {
 
         dispatch(setStatusProfileAC (status))}
-    })
+
 }

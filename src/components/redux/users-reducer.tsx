@@ -1,9 +1,11 @@
 import React from "react";
 import {ActionTypes} from "./state";
 import {AnyAction, Dispatch} from "redux";
-import {usersAPI} from "../../api/api";
+import {CommonResponse1, usersAPI} from "../../api/api";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "./redux-store";
+import { AxiosResponse } from "axios";
+import {updateObjectArray} from "../../utils/objects-helpers";
 
 export type UsersType = {
     id: string,
@@ -12,6 +14,7 @@ export type UsersType = {
     status: string
     photoUrl: string
     location: UserLocation
+    objPropName:string
     photos: {
         small: string,
         large: string
@@ -22,7 +25,7 @@ type UserLocation = {
     city: string
     country: string
 }
-type InitialStateUserType = {
+export type InitialStateUserType = {
     users: UsersType[]
     pageSize: number
     totalUserCount: number
@@ -31,7 +34,7 @@ type InitialStateUserType = {
     //  followingInProgress:boolean
     followingInProgress: string[],
 }
-const inirialState: InitialStateUserType = {
+export const inirialState: InitialStateUserType = {
     users: [],
     pageSize: 10,
     totalUserCount: 5,
@@ -44,22 +47,26 @@ export const userReducer = (state = inirialState, action: ActionTypes): InitialS
     switch (action.type) {
         case 'FOLLOW':
             return {
-                ...state, users: state.users.map(u => {
-                    debugger
+                ...state,
+                users:updateObjectArray(state.users,action.userId,{followed:true} )
+              /*  users: state.users.map(u => {
+
                     if (u.id === action.userId) {
                         return {...u, followed: true}
                     }
                     return u
-                })
+                })*/
             }
         case'UNFOLLOW':
             return {
-                ...state, users: state.users.map(u => {
+                ...state,
+                users:updateObjectArray(state.users,action.userId,{followed:false} )
+            /*    users: state.users.map(u => {
                     if (u.id === action.userId) {
                         return {...u, followed: false}
                     }
                     return u
-                })
+                })*/
             }
         case "SET_USERS":
             return {...state, users: action.users}
@@ -111,51 +118,68 @@ export const ToglefollowingInProgress = (isFetching: boolean, userId: string) =>
 }
 
 export const getUsersTC = (page: number, pageSize: number) => {
-    return (dispatch: Dispatch<ActionTypes>) => {
+    return async (dispatch: Dispatch<ActionTypes>) => {
+
         dispatch(setCurrentAC(page))
         dispatch(ToggleFeathingAC(true))
-        usersAPI.getUsers(page, pageSize).then(data => {
-            dispatch(ToggleFeathingAC(false))
-            dispatch(setUsersAC(data.items))
-            dispatch(setUsersTotalCountAC(data.totalCount))
-        })
+        let data = await usersAPI.getUsers(page, pageSize)
+        dispatch(ToggleFeathingAC(false))
+        dispatch(setUsersAC(data.items))
+        dispatch(setUsersTotalCountAC(data.totalCount))
+
     }
+}
+async  function followUnfollowFlow (dispatch:Dispatch<ActionTypes>,
+                                  userId: string,
+                                  apiMethod:(userId: string) => Promise<AxiosResponse<CommonResponse1<{}>, any>>,
+                                  actionCreator: (userId: string) => ActionTypes)  {
+    dispatch(ToglefollowingInProgress(true, userId))
+    let res =await  apiMethod(userId)
+    if (res.data.resultCode === 0) {
+        dispatch(actionCreator(userId))
+    }
+    dispatch(ToglefollowingInProgress(false, userId))
 }
 
 export const followTC = (userId: string) => {
-    return (dispatch: Dispatch<ActionTypes>) => {
-        dispatch(ToglefollowingInProgress(true, userId))
-        usersAPI.follow(userId)
-            .then(res => {
-                if (res.data.resultCode === 0) {
-                    dispatch(followSuccess(userId))
-                }
-                dispatch(ToglefollowingInProgress(false, userId))
-            })
+    return async (dispatch: Dispatch<ActionTypes>) => {
+        let apiMethod = usersAPI.follow.bind(usersAPI)
+        let actionCreator = followSuccess
+        followUnfollowFlow(dispatch,userId,apiMethod,actionCreator)
+
+  /*      dispatch(ToglefollowingInProgress(true, userId))
+        let res = await apiMethod(userId)
+        if (res.data.resultCode === 0) {
+            dispatch(actionCreator(userId))
+        }
+        dispatch(ToglefollowingInProgress(false, userId))*/
+
     }
 }
 export const unfollowTC = (userId: string): ThunkAction<void, AppStateType, unknown, ActionTypes> => {
-    return (dispatch:Dispatch<ActionTypes>
+    return async (dispatch: Dispatch<ActionTypes>
     ) => {
-        debugger
-        dispatch(ToglefollowingInProgress(true, userId))
-        usersAPI.unfollow(userId)
-            .then(res => {
-                debugger
-                if (res.data.resultCode === 0) {
-                    dispatch(unfollowSuccess(userId))
-                }
-                dispatch(ToglefollowingInProgress(false, userId))
-            })
+        followUnfollowFlow(dispatch,userId,usersAPI.unfollow.bind(usersAPI),unfollowSuccess)
+
+     /*   dispatch(ToglefollowingInProgress(true, userId))
+        let res = await apiMethod(userId)
+        if (res.data.resultCode === 0) {
+            dispatch(actionCreator(userId))
+        }
+        dispatch(ToglefollowingInProgress(false, userId))*/
+
     }
 }
 
 export const onPageChengeTC = (pageNumber: number, pageSize: number) => {
-    return (dispatch: Dispatch<ActionTypes>) => {
-          usersAPI.getUsers(pageNumber, pageSize).then(data => {
-            dispatch(ToggleFeathingAC(false));
-            dispatch(setUsersAC(data.items));
-            dispatch(setUsersTotalCountAC(data.totalCount));
-        });
+    return async (dispatch: Dispatch<ActionTypes>) => {
+        dispatch(setCurrentAC(pageNumber))
+        dispatch(ToggleFeathingAC(false))
+        let data = await usersAPI.getUsers(pageNumber, pageSize)
+       console.log({ pageNumber, pageSize })
+        dispatch(ToggleFeathingAC(false));
+        dispatch(setUsersAC(data.items));
+        dispatch(setUsersTotalCountAC(data.totalCount));
+
     };
 };

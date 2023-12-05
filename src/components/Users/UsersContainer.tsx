@@ -23,6 +23,7 @@ import {
   getTotalUserCount,
   getUsers
 } from "../redux/users-selectors";
+import {usersAPI} from "../../api/api";
 
 
 export type SuperUserContainerType = mapStateToPropsType & mapDispatchToPropsType
@@ -33,6 +34,7 @@ type mapStateToPropsType = {
   currenPage:number
   isFetching:boolean
   followingInProgress:string[]
+
 }
 
 type mapDispatchToPropsType = {
@@ -48,6 +50,7 @@ type mapDispatchToPropsType = {
 
 }
 class UsersAPIComponent extends React.Component<SuperUserContainerType, UsersType> {
+
   componentDidMount() {
     this.props.getUsers(this.props.currenPage,this.props.pageSize)
 
@@ -57,16 +60,10 @@ class UsersAPIComponent extends React.Component<SuperUserContainerType, UsersTyp
        this.props.getUsers(pageNumber,this.props.pageSize)
 
      }
-  /*onPageChenges= (pageNumber:number)=>{
-    this.props.getUsers(pageNumber,this.props.pageSize)
 
-  }*/
-  onPageChenges = (pageNumber: number) => {
-    // Вызываем onPageChengeTC, передавая pageNumber и pageSize
-    this.props.onPageChengeTC(pageNumber, this.props.pageSize);
-  }
 
   render (){
+    console.log(this.props)
     return <div className={s.backgroundIMG}>
       {this.props.isFetching ? <Preloader/> :<Users
               totalUserCount={this.props.totalUserCount}
@@ -90,6 +87,7 @@ class UsersAPIComponent extends React.Component<SuperUserContainerType, UsersTyp
 
   }
 
+
 }
 let witchRedirect = witchAutchRedirect(UsersAPIComponent)
 let mapStateToProps = (state:AppStateType):mapStateToPropsType => {
@@ -104,6 +102,7 @@ let mapStateToProps = (state:AppStateType):mapStateToPropsType => {
 
   }
 }
+
 export default compose<React.ComponentType>(connect(mapStateToProps, {
   witchRedirect,
   follow: followTC,
@@ -115,5 +114,5 @@ export default compose<React.ComponentType>(connect(mapStateToProps, {
   ToglefollowingInProgress,
   getUsers:getUsersTC,
   witchAutchRedirect,
-  onPageChenges:onPageChengeTC,
+  onPageChengeTC,
 }))(UsersAPIComponent)

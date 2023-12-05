@@ -1,0 +1,18 @@
+.message {
+    display: flex;
+    list-style-type: none; /* убрать стандартные маркеры для списка */
+    padding: 0; /* убрать внутренний отступ у списка */
+    padding-right: 10px;
+    padding-top: 7px;
+    font-family: Arial, sans-serif;
+    font-size: 0.9em;
+    color: #76d2d2;
+
+}
+.SelectedPageStyle{
+  color: red;
+    font-weight: bolder;
+}
+.PageStyle{
+    margin: 3px;
+}

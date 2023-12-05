@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 
 
 const instance = axios.create({
@@ -9,18 +9,32 @@ const instance = axios.create({
     }
 })
 
+type CommonResponse<T = []> = {
+    error: string | null
+    items: T
+    totalCount: number
+}
+
+export type CommonResponse1<T = {}> = {
+    data: T
+    fieldsErrors: string[]
+    messages: string[]
+    resultCode: number
+}
+
 export const usersAPI = {
     getUsers: (currenPage = 1, pageSize = 10) => {
-        return instance.get(`users?page=${currenPage}&count=${pageSize}`)
+       // return instance.get<CommonResponse<any>>(`users?page=${currenPage}&count=${pageSize}`)
+        return instance.get<CommonResponse, AxiosResponse<CommonResponse>>(`users?page=${currenPage}&count=${pageSize}`)
             .then(res => res.data)
     },
 
     unfollow: (userId: string) => {
-        return instance.delete(`follow/${userId}`)
+        return instance.delete<CommonResponse1 , AxiosResponse<CommonResponse1>>(`follow/${userId}`)
     },
 
     follow: (userId: string) => {
-        return instance.post(`follow/${userId}`)
+        return instance.post<CommonResponse1 , AxiosResponse<CommonResponse1>>(`follow/${userId}`)
     },
     getProfile(userId: string) {
         return profileAPI.getProfile(userId)

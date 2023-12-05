@@ -38,7 +38,6 @@ export const getMeTC = ()=> async (dispatch:Dispatch)=>{
             let {id,email,login} = response.data.data
             dispatch(setUserAuthDataAC(id,email,login,true))
         }
-
 }
 
 export const login  = (email:null,password:null,rememberMe:boolean): AppThunkType=>
@@ -46,8 +45,7 @@ export const login  = (email:null,password:null,rememberMe:boolean): AppThunkTyp
       //
         let response = await  LoginAPI.login(email,password,rememberMe)
 /*            .then*/
-
-           if(response.data.resultCode === 0){
+        if(response.data.resultCode === 0){
                dispatch(getMeTC())
                           }else {
                let message = response.data.messages.length > 0 ? response.data.messages[0] :"Seme error"

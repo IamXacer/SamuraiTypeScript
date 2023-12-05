@@ -1,7 +1,8 @@
-.content{
-    grid-area:c;
+.content {
+    grid-area: c;
     background-color: #78608b;
 }
+
 .content img {
     height: 230px;
     width: 900px;
@@ -9,6 +10,10 @@
 }
 
 .profileWrapperContent {
-    grid-area:auto;
+    grid-area: auto;
     background-color: rgba(114, 117, 117, 0.95);
+}
+.impSize img{
+    height: 730px;
+    width: 1650px;
 }

@@ -1,17 +1,19 @@
 import React from "react";
 import s from './FormControls.module.css'
+import {Field} from "redux-form";
+import {requiredField} from "../../utils/validators/validators";
 
-const FormControl: React.FC<TextareaProps> = ({ input, meta
-                                                  ,child, ...props }) =>{
-  const hasError = meta.touched && meta.error
+const FormControl: React.FC<TextareaProps> = ({ input, meta:{touched,error}
+                                                  , children,...props }) =>{
+  const hasError = touched && error
     return (
         <div className={s.formControl + ' ' +(hasError? s.error : '' )} >
             <div>
            {/*     <div><textarea {...input} {...props} /></div>*/}
-                {props.children}
+                {children}
             </div>
             <div >{
-                hasError ? <span>{meta.error}</span> : ''}</div>
+                hasError ? <span>{error}</span> : ''}</div>
         </div>
     );
 }
@@ -44,6 +46,7 @@ export const Input: React.FC<inputProps> = (props) => {
     const { input, meta,child, ...restprops } = props
     return <FormControl {...props}><input {...input} {...restprops} /></FormControl>
 };
+
 interface InputProps {
     name: string;
     onBlur: () => void;
