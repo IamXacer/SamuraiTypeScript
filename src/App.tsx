@@ -40,26 +40,22 @@ class  App extends React.Component<any, any>  {
                 <HeaderContainer/>
                 <Nav/>
                 <div>
-                    <Suspense fallback={<div><Preloader /></div>}>
+                    <Suspense fallback={<div></div>}>
                     <Routes>
                         <Route path={'/profile/:userId?'}>
                            <Route index element={<ProfileContainer /*store={props.store} *//>}/>
                             <Route path=':userId'
                                    index
                                    element={
-
-                                           <ProfileContainer /*store={props.store} *//>
-
-                                   }
+                                <ProfileContainer /*store={props.store} *//>
+                            }
                             />
                         </Route>
 
                         <Route path="/dialogs/*"
-
                                element={
                             <SuperDialogContainer/>
                         }/>
-
                         <Route path="/login" element={<Login/>}/>
                         <Route path="/users" element={<UsersContainer/>}/>
 
