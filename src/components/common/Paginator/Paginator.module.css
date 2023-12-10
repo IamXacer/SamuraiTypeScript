@@ -16,3 +16,14 @@
 .PageStyle{
     margin: 3px;
 }
+.paginatorButton{
+
+    top:50%;
+    background-color: #a6a542;
+    color: #fff;
+}
+.paginatorButton:hover {
+    background-color: #0b9638;
+    transition: 0.7s;
+
+}

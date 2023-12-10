@@ -19,7 +19,7 @@ import {
   getCurrenPage,
   getFollowingInProgress,
   getIsFetching,
-  getPageSize,
+  getPageSize, getPortionSize,
   getTotalUserCount,
   getUsers
 } from "../redux/users-selectors";
@@ -30,11 +30,11 @@ export type SuperUserContainerType = mapStateToPropsType & mapDispatchToPropsTyp
 type mapStateToPropsType = {
   users:UsersType[]
   pageSize:number
-  totalUserCount:number
+  totalItemCount:number
   currenPage:number
   isFetching:boolean
   followingInProgress:string[]
-
+  portionSize:number
 }
 
 type mapDispatchToPropsType = {
@@ -44,7 +44,7 @@ type mapDispatchToPropsType = {
   setCurrentPage:(currenPage:number)=>void
   setTotalUserCount:(totalCount:number)=>void
    tofleIsFeathing:(isFetching:boolean)=>void
-  ToglefollowingInProgress:(isFetching:boolean, userId:string)=>void
+  ToggleFeathingInProgress: (isFetching: boolean, userId: string) => void;
   getUsers:(currenPage:number,pageSize:number)=>void
   onPageChengeTC: (pageNumber: number, pageSize: number) => void;
 
@@ -66,7 +66,7 @@ class UsersAPIComponent extends React.Component<SuperUserContainerType, UsersTyp
     console.log(this.props)
     return <div className={s.backgroundIMG}>
       {this.props.isFetching ? <Preloader/> :<Users
-              totalUserCount={this.props.totalUserCount}
+              totalItemCount={this.props.totalItemCount}
               users={this.props.users}
               currenPage={this.props.currenPage}
               follow={this.props.follow}
@@ -79,7 +79,8 @@ class UsersAPIComponent extends React.Component<SuperUserContainerType, UsersTyp
               tofleIsFeathing={this.props.tofleIsFeathing}
               onPageChengeTC={this.props.onPageChengeTC}
               followingInProgress={this.props.followingInProgress}
-              ToglefollowingInProgress={this.props.ToglefollowingInProgress}
+              portionSize={this.props.portionSize}
+              ToggleFeathingInProgress={this.props.ToggleFeathingInProgress}
               getUsers={this.props.getUsers}
 
           />}
@@ -94,10 +95,11 @@ let mapStateToProps = (state:AppStateType):mapStateToPropsType => {
   return{
     users:getUsers(state),
     pageSize:getPageSize(state),
-    totalUserCount:getTotalUserCount(state),
+    totalItemCount:getTotalUserCount(state),
     currenPage:getCurrenPage(state),
     isFetching:getIsFetching(state),
     followingInProgress:getFollowingInProgress(state),
+    portionSize:getPortionSize(state),
 
 
   }

@@ -50,3 +50,4 @@ export const SuperDialogContainer = connect(mapStateToProps,
         addNewDialog:sendTextAC
     })
 (AutchRedirectComponent)
+export default SuperDialogContainer;

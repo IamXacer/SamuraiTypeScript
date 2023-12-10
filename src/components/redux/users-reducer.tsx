@@ -33,6 +33,7 @@ export type InitialStateUserType = {
     isFetching: boolean
     //  followingInProgress:boolean
     followingInProgress: string[],
+    portionSize:number,
 }
 export const inirialState: InitialStateUserType = {
     users: [],
@@ -41,7 +42,8 @@ export const inirialState: InitialStateUserType = {
     currenPage: 10,
     isFetching: true,
     // followingInProgress:true
-    followingInProgress: []
+    followingInProgress: [],
+    portionSize:10,
 }
 export const userReducer = (state = inirialState, action: ActionTypes): InitialStateUserType => {
     switch (action.type) {

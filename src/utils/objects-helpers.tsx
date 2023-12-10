@@ -9,7 +9,8 @@ export const inirialState: InitialStateUserType = {
     currenPage: 10,
     isFetching: true,
     // followingInProgress:true
-    followingInProgress: []
+    followingInProgress: [],
+    portionSize:10
 }
 export const updateObjectArray = (items: UsersType[], itemId: string,newOblProps :{followed:boolean}): UsersType[] => {
     return items.map(u => {

@@ -18,11 +18,11 @@ console.log({ users: props.users })
 
 />*/}
                     <Paginator currenPage={props.currenPage}
-                               totalUserCount={props.totalUserCount}
+                               totalItemCount={props.totalItemCount}
                                pageSize={props.pageSize}
                                isFetching={props.isFetching} users={props.users}
                                followingInProgress={props.followingInProgress}
-                               ToglefollowingInProgress={props.ToglefollowingInProgress}
+                               ToggleFeathingInProgress={props.ToggleFeathingInProgress}
                                follow={props.follow}
                                unfollow={props.unfollow}
                                getUsers={props.getUsers}
@@ -30,6 +30,7 @@ console.log({ users: props.users })
                                onPageChengeTC={props.onPageChengeTC}
                                setTotalUserCount={props.setTotalUserCount}
                                tofleIsFeathing={props.tofleIsFeathing}
+                               portionSize={props.portionSize}
 
                     />
 

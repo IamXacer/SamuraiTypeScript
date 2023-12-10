@@ -23,3 +23,6 @@ export const getCurrenPage = (state:AppStateType) => {
 export const getFollowingInProgress = (state:AppStateType) => {
     return state.userPage.followingInProgress
 }
+export const getPortionSize = (state:AppStateType) => {
+    return state.userPage.portionSize
+}
