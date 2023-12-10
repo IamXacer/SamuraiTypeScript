@@ -40,7 +40,7 @@ class  App extends React.Component<any, any>  {
                 <HeaderContainer/>
                 <Nav/>
                 <div>
-                    <Suspense fallback={<div></div>}>
+                    <Suspense fallback={<div><Preloader /></div>}>
                     <Routes>
                         <Route path={'/profile/:userId?'}>
                            <Route index element={<ProfileContainer /*store={props.store} *//>}/>
@@ -51,7 +51,7 @@ class  App extends React.Component<any, any>  {
                             }
                             />
                         </Route>
-
+                        "homepage": "https://Iamxacer.github.io/SamuraiTypeScript",
                         <Route path="/dialogs/*"
                                element={
                             <SuperDialogContainer/>
