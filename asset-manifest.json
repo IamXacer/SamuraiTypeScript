@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/Phantom/SamuraiTypeScript/static/css/main.3aabfc16.css",
-    "main.js": "/Phantom/SamuraiTypeScript/static/js/main.5adf50c1.js",
-    "static/css/8.38a8b022.chunk.css": "/Phantom/SamuraiTypeScript/static/css/8.38a8b022.chunk.css",
-    "static/js/8.9a7933ee.chunk.js": "/Phantom/SamuraiTypeScript/static/js/8.9a7933ee.chunk.js",
-    "static/css/806.1be07955.chunk.css": "/Phantom/SamuraiTypeScript/static/css/806.1be07955.chunk.css",
-    "static/js/806.6b940d41.chunk.js": "/Phantom/SamuraiTypeScript/static/js/806.6b940d41.chunk.js",
-    "static/media/photo.png": "/Phantom/SamuraiTypeScript/static/media/photo.44d5a4aaa33b7f5d1b00.png",
-    "static/media/Prealoader.svg": "/Phantom/SamuraiTypeScript/static/media/Prealoader.e7edf54e99f44fc8f39254471c1ce9fe.svg",
-    "static/media/facebookSVG.svg": "/Phantom/SamuraiTypeScript/static/media/facebookSVG.16a4192a33266bcb19357cab400ea32f.svg",
-    "index.html": "/Phantom/SamuraiTypeScript/index.html",
-    "main.3aabfc16.css.map": "/Phantom/SamuraiTypeScript/static/css/main.3aabfc16.css.map",
-    "main.5adf50c1.js.map": "/Phantom/SamuraiTypeScript/static/js/main.5adf50c1.js.map",
-    "8.38a8b022.chunk.css.map": "/Phantom/SamuraiTypeScript/static/css/8.38a8b022.chunk.css.map",
-    "8.9a7933ee.chunk.js.map": "/Phantom/SamuraiTypeScript/static/js/8.9a7933ee.chunk.js.map",
-    "806.1be07955.chunk.css.map": "/Phantom/SamuraiTypeScript/static/css/806.1be07955.chunk.css.map",
-    "806.6b940d41.chunk.js.map": "/Phantom/SamuraiTypeScript/static/js/806.6b940d41.chunk.js.map"
+    "main.css": "/IamXacer/SamuraiTypeScript/static/css/main.3aabfc16.css",
+    "main.js": "/IamXacer/SamuraiTypeScript/static/js/main.fd535f6a.js",
+    "static/css/8.38a8b022.chunk.css": "/IamXacer/SamuraiTypeScript/static/css/8.38a8b022.chunk.css",
+    "static/js/8.9a7933ee.chunk.js": "/IamXacer/SamuraiTypeScript/static/js/8.9a7933ee.chunk.js",
+    "static/css/806.1be07955.chunk.css": "/IamXacer/SamuraiTypeScript/static/css/806.1be07955.chunk.css",
+    "static/js/806.6b940d41.chunk.js": "/IamXacer/SamuraiTypeScript/static/js/806.6b940d41.chunk.js",
+    "static/media/photo.png": "/IamXacer/SamuraiTypeScript/static/media/photo.44d5a4aaa33b7f5d1b00.png",
+    "static/media/Prealoader.svg": "/IamXacer/SamuraiTypeScript/static/media/Prealoader.e7edf54e99f44fc8f39254471c1ce9fe.svg",
+    "static/media/facebookSVG.svg": "/IamXacer/SamuraiTypeScript/static/media/facebookSVG.16a4192a33266bcb19357cab400ea32f.svg",
+    "index.html": "/IamXacer/SamuraiTypeScript/index.html",
+    "main.3aabfc16.css.map": "/IamXacer/SamuraiTypeScript/static/css/main.3aabfc16.css.map",
+    "main.fd535f6a.js.map": "/IamXacer/SamuraiTypeScript/static/js/main.fd535f6a.js.map",
+    "8.38a8b022.chunk.css.map": "/IamXacer/SamuraiTypeScript/static/css/8.38a8b022.chunk.css.map",
+    "8.9a7933ee.chunk.js.map": "/IamXacer/SamuraiTypeScript/static/js/8.9a7933ee.chunk.js.map",
+    "806.1be07955.chunk.css.map": "/IamXacer/SamuraiTypeScript/static/css/806.1be07955.chunk.css.map",
+    "806.6b940d41.chunk.js.map": "/IamXacer/SamuraiTypeScript/static/js/806.6b940d41.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.3aabfc16.css",
-    "static/js/main.5adf50c1.js"
+    "static/js/main.fd535f6a.js"
   ]
 }
