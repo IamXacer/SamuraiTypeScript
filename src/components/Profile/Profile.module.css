@@ -17,3 +17,8 @@
     height: 730px;
     width: 1650px;
 }
+.mainPhoto {
+    height: 145px;
+    width: 145px;
+    border-radius: 19%;
+}

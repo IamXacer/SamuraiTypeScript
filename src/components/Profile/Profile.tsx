@@ -23,7 +23,10 @@ import {initStateType, ProfileType} from "../redux/profile-reducer";
 export const Profile = (props:ProfileType) => {
   return (
       <div className={s.profileWrapperContent}>
-          <ProfileInfo profile={props.profile}
+          <ProfileInfo isOwner={props.isOwner}
+                       photo={props.photo}
+                       savePhoto={props.savePhoto}
+              profile={props.profile}
                        statusss={props.statusss}
                        updateStatus={props.updateStatus}
           />

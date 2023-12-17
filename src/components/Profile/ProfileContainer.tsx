@@ -2,7 +2,7 @@ import React from "react";
 import {Profile} from "./Profile";
 import {AppStateType} from "../redux/redux-store";
 import {connect} from "react-redux";
-import {getProfileStatusTC, getProfileTC, initStateType, updateStatus} from "../redux/profile-reducer";
+import {getProfileStatusTC, getProfileTC, initStateType, savePhoto, updateStatus} from "../redux/profile-reducer";
 import {Navigate, useParams} from 'react-router-dom';
 import {witchAutchRedirect} from "../../hoc/AutchRedirect";
 import {compose} from "redux";
@@ -16,24 +16,36 @@ export function withRouter(Children: any) {
 }
 
 class ProfileContainer extends React.Component<any, initStateType> {
-    componentDidMount() {
+    refreshProfile (){
         let userId = this.props.match.params.userId
         if (!userId ) {
 
             userId = this.props.authorizedUserId
-      if  (!userId){
-            this.props.history.push('/login')
-        }}
+            if  (!userId){
+                this.props.history.push('/login')
+            }}
         this.props.getProfileTC(userId)
         this.props.getProfileStatusTC(userId)
     }
+    componentDidMount() {
+        this.refreshProfile()
+    }
 
+    componentDidUpdate(prevProps:Readonly<mapStateToPropsType>, prevState:Readonly<initStateType>, snapshot?:any) {
+        if (this.props.userId != this.props.match.params.userId )
+        this.refreshProfile()
+    }
     render() {
         //  if (!this.props.isAuth ) return <Navigate  to={'/login'}/>
         return (
-            <Profile {...this.props} profile={this.props.profile}
+            <Profile {...this.props}
+          photo={this.props.photo}
+                isOwner ={!this.props.match.params.userId}
+                     profile={this.props.profile}
                      statusss={this.props.status}
                      updateStatus={this.props.updateStatus}
+                     savePhoto={this.props.savePhoto}
+
             />
         )
     }
@@ -44,21 +56,23 @@ export type mapStateToPropsType = {
     profile: any,
     status:string,
     authorizedUserId:null,
-    isAuth:boolean
+    isAuth:boolean,
+
 }
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
         profile: state.profileReducer.profile,
         status: state.profileReducer.statusss,
         authorizedUserId:state.auth.userId,
-        isAuth:state.auth.isAuth
+        isAuth:state.auth.isAuth,
+
 
     }
 }
 export default compose<React.ComponentType>(
     connect(mapStateToProps, {
      //   witchRedirect,
-        getProfileTC,getProfileStatusTC,updateStatus}),
+        getProfileTC,getProfileStatusTC,updateStatus,savePhoto}),
     withRouter,
   witchAutchRedirect,
 )(ProfileContainer)

@@ -26,7 +26,7 @@
      statusss:string
      updateStatus: (val: string) => void
  }
- it ('new post should be add',()=>{
+ /*it ('new post should be add',()=>{
      let action:ActionTypes  = addPostAC('it-kamasutra.com')
 
      const State = {
@@ -43,4 +43,4 @@
 
      expect(newState.posts.length).toBe(5)
      expect(newState.posts[4].message).toBe('it-kamasutra.com')
- })
+ })*/

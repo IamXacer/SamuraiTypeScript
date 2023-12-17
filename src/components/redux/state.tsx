@@ -1,6 +1,6 @@
 import {DialogPageType, dialogsReducer, sendTextAC} from "./dialogs-reducer"
 import {
-    addPostAC, deletePostAC, profileReducer, setStatusProfileAC, setUserProfileAC,
+    addPostAC, deletePostAC, profileReducer, savePhotoSuccess, setStatusProfileAC, setUserProfileAC,
     /*    updateNewPostTextAC*/
 } from "./profile-reducer"
 import {sidebarReducer} from "./sidebar-reducer";
@@ -158,6 +158,7 @@ export type ActionTypes =
     |ReturnType<typeof setStatusProfileAC>
     |ReturnType<typeof initializedSuccessAC>
     |ReturnType<typeof deletePostAC>
+    |ReturnType<typeof savePhotoSuccess>
 
 
 export type MessageType = {

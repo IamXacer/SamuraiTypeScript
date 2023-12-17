@@ -2,6 +2,7 @@ import React from "react";
 import {ActionTypes, PostType, ProfilePageType, RootStateType} from "./state";
 import {Dispatch} from "redux";
 import {profileAPI, usersAPI} from "../../api/api";
+import ProfileContainer from "../Profile/ProfileContainer";
 //import {profileAPI, usersAPI} from "../../api/api";
 export type postsType ={
     id: string,
@@ -9,21 +10,37 @@ export type postsType ={
     likesCount: number
 }
 export type ProfileType = {
-    profile:{
-        aboutMe: string
-        lookingForAJobDescription:string
-        contacts?:{
-            facebook:string
-            github:string }
-        photos?:{
-            large:string }
-    }
+    profile: {
+        aboutMe: string;
+        lookingForAJobDescription: string;
+        contacts: {
+            facebook: string;
+            github: string;
+        };
+        photos: {
+            large: string;
+            small: string;
+        };
+        userPhoto: {
+            large: string;
+        };
+        match: {
+            params: {
+                userId: string;
+            };
+        };
 
+    };
+    photo:string
     statusss:string
     updateStatus: (val: string) => void
-}
+    isOwner:boolean
+    savePhoto: (file: any) => void;
+};
 
-const inirialState = {
+
+
+const initialState = {
     posts: [
         {id: '1', message: 'Hi,how are you', likesCount: 1},
         {id: '2', message: 'It\'s nice to meet you', likesCount: 3},
@@ -34,8 +51,8 @@ const inirialState = {
     profile:{} as ProfileType ,
     statusss:''
 }
-export type initStateType = typeof inirialState
-export const profileReducer = (state:initStateType=inirialState,action:ActionTypes):initStateType => {
+export type initStateType = typeof initialState
+export const profileReducer = (state:initStateType=initialState,action:ActionTypes):initStateType => {
   switch (action.type){
       case "ADD-POST":
           let newPost: PostType = {
@@ -53,6 +70,9 @@ export const profileReducer = (state:initStateType=inirialState,action:ActionTyp
           return {...state,statusss:action.status}
       case "DELETE-POST" :
           return {...state,posts:state.posts.filter(el=>el.id != action.postId)}
+
+      case "SAVE_PHOTO_SUCCESS":
+          return {...state, profile: {...state.profile,photos:action.photos} as ProfileType}
       default: return state
   }
 
@@ -73,6 +93,9 @@ export const setStatusProfileAC = (status:string) =>{
 export const deletePostAC = (postId:string) => {
   return {type:'DELETE-POST',postId} as const
 }
+export const savePhotoSuccess = (photos:string) => {
+  return {type:'SAVE_PHOTO_SUCCESS',photos} as const
+}
 
 export const getProfileTC =(userId:string)=> async (dispatch:Dispatch)=>{
     let response = await
@@ -91,5 +114,14 @@ export const updateStatus =(status:string)=>async(dispatch:Dispatch)=>{
         if(response.data.resultCode === 0) {
 
         dispatch(setStatusProfileAC (status))}
+
+}
+
+export const savePhoto =(file:any)=>async(dispatch:Dispatch)=>{
+    let response = await
+        profileAPI.savePhoto(file)
+    if(response.data.resultCode === 0) {
+        console.log(response.data.data.photos)
+        dispatch(savePhotoSuccess (response.data.data.photos))}
 
 }

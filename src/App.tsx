@@ -1,7 +1,7 @@
 import React, {Suspense } from 'react';
 import './App.css';
 import {Nav} from "./components/Navbar/Nav";
-import {Route, Routes, useParams} from "react-router-dom";
+import {BrowserRouter, Route, Routes, useParams} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
 //import {SuperDialogContainer} from "./components/Dialogs/DialogsContainer";
@@ -41,7 +41,7 @@ class  App extends React.Component<any, any>  {
                 <Nav/>
                 <div>
                     <Suspense fallback={<div><Preloader /></div>}>
-                    <Routes>
+                    <Routes >
                         <Route path={'/profile/:userId?'}>
                            <Route index element={<ProfileContainer /*store={props.store} *//>}/>
                             <Route path=':userId'
@@ -51,7 +51,6 @@ class  App extends React.Component<any, any>  {
                             }
                             />
                         </Route>
-                        "homepage": "https://Iamxacer.github.io/SamuraiTypeScript",
                         <Route path="/dialogs/*"
                                element={
                             <SuperDialogContainer/>
@@ -60,6 +59,7 @@ class  App extends React.Component<any, any>  {
                         <Route path="/users" element={<UsersContainer/>}/>
 
                     </Routes>
+                        {/*</BrowserRouter>*/}
                     </Suspense>
                 </div>
             </div>

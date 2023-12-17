@@ -12,3 +12,7 @@
     grid-area:auto;
     background-color: rgba(114, 117, 117, 0.95);
 }
+.mainPhoto {
+    height: 45px;
+    width: 45px;
+}
