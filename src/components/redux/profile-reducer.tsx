@@ -12,7 +12,9 @@ export type postsType ={
 export type ProfileType = {
     profile: {
         aboutMe: string;
+        lookingForAJob: string;
         lookingForAJobDescription: string;
+        fullName:string
         contacts: {
             facebook: string;
             github: string;
@@ -31,7 +33,7 @@ export type ProfileType = {
         };
 
     };
-    photo:string
+
     statusss:string
     updateStatus: (val: string) => void
     isOwner:boolean
