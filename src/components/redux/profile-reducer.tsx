@@ -40,7 +40,7 @@ export type ProfileType = {
         };
 
     };
-
+    goToEditMode:()=>void
     statusss:string
     updateStatus: (val: string) => void
     isOwner:boolean

@@ -24,6 +24,7 @@ export const Profile = (props:ProfileType) => {
   return (
       <div className={s.profileWrapperContent}>
           <ProfileInfo isOwner={props.isOwner}
+                       goToEditMode={props.goToEditMode}
                       // photo={props.photo}
                        savePhoto={props.savePhoto}
               profile={props.profile}

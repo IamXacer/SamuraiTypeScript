@@ -1,14 +1,15 @@
 import React, {ChangeEvent, useState} from "react";
-import s from "../Profile.module.css";
+import s from "../ProfileInfo/ProfileInfo.module.css";
 import {Preloader} from "../../common/Preloader/Preloader";
 import {ProfileStatus} from "./ProfileStatus";
 import {ProfileType} from "../../redux/profile-reducer";
 import {ProfileStatusWitchHooks} from "./ProfileStatusWitchHooks";
 import userPhoto from "../../../assets/img/photo.png";
+//import {ProfileDataForm} from "./ProfileDataMyForm";
 
 //export const ProfileInfo = (props: ProfileType) => {
-export  const ProfileInfo = (props: ProfileType) => {
-        const { profile, isOwner, statusss, updateStatus, savePhoto } = props;
+export const ProfileInfo: React.FC<ProfileType> = (props: ProfileType) => {
+    const {profile, isOwner, statusss, updateStatus, savePhoto} = props;
 
 
 
@@ -41,21 +42,25 @@ export  const ProfileInfo = (props: ProfileType) => {
                     </div>
                 )}
             </div>
-            <ProfileStatusWitchHooks status={statusss} updateStatus={updateStatus}/>
-            {editMode ? <ProfileDataForm
-                profile={profile}
-                statusss={statusss}
-                updateStatus={updateStatus}
-                savePhoto={savePhoto}
-                isOwner={isOwner}/> :
+            <div className={s.userInfo}><ProfileStatusWitchHooks status={statusss} updateStatus={updateStatus}/></div>
+            {editMode ? <ProfileData
+                    profile={profile}
+                    statusss={statusss}
+                    updateStatus={updateStatus}
+                    savePhoto={savePhoto}
+                    isOwner={isOwner}
+                    goToEditMode={() =>{}}
+                /> :
 
                 <ProfileData
-                profile={profile}
-                statusss={statusss}
-                updateStatus={updateStatus}
-                savePhoto={savePhoto}
-                isOwner={isOwner}
-            />}
+                    goToEditMode={() => {
+                        seteditMode(true)}}
+                    profile={profile}
+                    statusss={statusss}
+                    updateStatus={updateStatus}
+                    savePhoto={savePhoto}
+                    isOwner={isOwner}
+                />}
 
             {/*<div>
             <div>{props.profile.aboutMe}</div>
@@ -82,11 +87,18 @@ export  const ProfileInfo = (props: ProfileType) => {
     )
 
 }
-const ProfileData = ({ profile }: ProfileType) => {
-    const { aboutMe, fullName, lookingForAJob, lookingForAJobDescription, contacts } = profile;
+const ProfileData = ({profile, isOwner, goToEditMode}: ProfileType) => {
+    const {
+        aboutMe, fullName, lookingForAJob,
+        lookingForAJobDescription, contacts
+    } = profile;
     return (
-        <div>
-            <div>{profile.aboutMe}</div>
+        <div className={s.userInfo}>
+            {isOwner && <div>
+                <button onClick={goToEditMode}>eDIt</button>
+            </div>}
+
+            <div><b>AboutMe: </b>{profile.aboutMe}</div>
             <div><b>FullName: </b>{profile.fullName}</div>
             <div>
                 <b>LookingForAJob</b>:
@@ -108,35 +120,17 @@ const ProfileData = ({ profile }: ProfileType) => {
         </div>
     )
 }
-const ProfileDataForm = ({ profile }: ProfileType) => {
+/*const ProfileDataForm = ({profile}: ProfileType) => {
     return (
-        <div>
-            <div>{profile.aboutMe}</div>
-            <div><b>FullName: </b>{profile.fullName}</div>
-            <div>
-                <b>LookingForAJob</b>:
-                {profile.lookingForAJob ? 'Yes' : 'No'}</div>
-            {profile.lookingForAJob ?
-                <div><b>My profesional skils: </b>
-                    {profile.lookingForAJobDescription}
-                </div> : ''}
-
-
-            <div>{profile.contacts?.facebook}</div>
-            <div>{profile.contacts?.github}</div>
-            <div><b>Contacts: </b>
-                {profile.contacts && Object.keys(profile.contacts).map((key) => {
-                    return <Contact key={key}
-                                    contactTitle={key}
-                                    contactValue={profile.contacts[key]}/>
-                })}</div>
+        <div className={s.userInfo}>
+            FORM
         </div>
     )
-}
+}*/
 // Обновите вашу функцию Contact с явными типами
-const Contact: React.FC<{ contactTitle: string; contactValue: string }> = ({contactTitle, contactValue}) => {
+export const Contact: React.FC<{ contactTitle: string; contactValue: string }> = ({contactTitle, contactValue}) => {
     return (
-        <div><b>{contactTitle}</b>: {contactValue}</div>
+        <div className={s.contacts}><b>{contactTitle}</b>: {contactValue}</div>
     );
 };
 

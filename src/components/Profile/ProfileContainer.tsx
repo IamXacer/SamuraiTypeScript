@@ -39,6 +39,7 @@ class ProfileContainer extends React.Component<any, initStateType> {
         //  if (!this.props.isAuth ) return <Navigate  to={'/login'}/>
         return (
             <Profile {...this.props}
+                     goToEditMode={this.props.goToEditMode}
           //photo={this.props.photo}
                 isOwner ={!this.props.match.params.userId}
                      profile={this.props.profile}
