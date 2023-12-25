@@ -16,8 +16,15 @@ export type ProfileType = {
         lookingForAJobDescription: string;
         fullName:string
         contacts: {
-            facebook: string;
-            github: string;
+            github: string
+            vk: string
+            facebook: string
+            instagram: string
+            twitter: string
+            website:string
+            youtube:string
+            mainLink: string
+            [key: string]: string;
         };
         photos: {
             large: string;
