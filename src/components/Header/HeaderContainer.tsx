@@ -26,9 +26,9 @@ class HeaderContainer extends React.Component<any, HeaderPropsType>{
 }
 }
 export type MapStatePropsType ={
-    login: null,
+    login: string|null,
     isAuth: boolean,
-    logoutTC:null
+    logoutTC:null,
 
 }
 const mapStateToProps = (state:AppStateType):MapStatePropsType => ({

@@ -1,77 +1,98 @@
 import React from "react";
 import s from "./ProfileInfo.module.css";
-import { Field, InjectedFormProps, reduxForm } from "redux-form";
-import { requiredField } from "../../../utils/validators/validators";
-import { Input } from "../../FormsControls/FormsControls";
-import { ProfileType } from "../../redux/profile-reducer";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {requiredField} from "../../../utils/validators/validators";
+import {Input, Textarea} from "../../FormsControls/FormsControls";
+import {ProfileType, ProfType} from "../../redux/profile-reducer";
 
-type ProfileDataFormProps = {
-    profile: ProfileType;
-    isOwner: boolean;
-    goToEditMode: () => void;
-};
+export type ProfileDataFormType = {
+    profile: ProfType;
+    fullName: string
+    aboutMe: string
+    lookingForAJobDescription: string
+    lookingForAJob: boolean;
+    MyProfessionalSkills:string
+    error:string
+    saveProfile: (profile: ProfType) => Promise<void>
+    //initialValues:ProfType
+}
 
-const ProfileData: React.FC<InjectedFormProps<ProfileType,
-    ProfileDataFormProps> & ProfileDataFormProps> =
-    ({profile, isOwner, goToEditMode, handleSubmit
-    }) => {
-    const {
-        aboutMe,
-        fullName,
-        lookingForAJob,
-        lookingForAJobDescription,
-        contacts
-    } = profile.profile;
+const ProfileDataMyForm: React.FC<InjectedFormProps<ProfileDataFormType, ProfileType>
+    & { profile: ProfType }> = ({ handleSubmit, profile
+                                                             ,error }) => {
+    // Ваш компонент
 
-    return (
-        <form className={s.userInfo} onSubmit={handleSubmit}>
-            <div>
-                <button type="submit">Save</button>
-            </div>
 
-            <div>
-                <b>AboutMe: </b>
-                {profile.profile.aboutMe}
-            </div>
-            <div>
-                <b>FullName: </b>
-                <Field
-                    placeholder={"Full name"}
-                    name={"fullName"}
+        return (
+            <form className={s.userInfo} onSubmit={handleSubmit}>
+                <div>
+                    <button type={'submit'}>Save</button>
+                </div>
+                { error && <div className={s.formSummaryError}>
+                    {error}
+                </div>
+                }
+                <div><b>AboutMe: </b><Field
+                    placeholder={"AboutMe"}
+                    name={"aboutMe"}
                     validate={[]}
                     component={Input}
+                    //type={"checkbox"}
                 />
-            </div>
-            <div>
-                <b>LookingForAJob</b>: {profile.profile.lookingForAJob ? "Yes" : "No"}
-            </div>
-            {profile.profile.lookingForAJob ? (
-                <div>
-                    <b>My professional skills: </b>
-                    {profile.profile.lookingForAJobDescription}
                 </div>
-            ) : null}
+              {/*  { error && <div className={s.formSummaryError}>
+                    {error}
+                </div>
+                }*/}
+                <div>
+                    <b>FullName: </b>
+                    <Field
+                        placeholder={"Full name"}
+                        name={"fullName"}
+                        validate={[requiredField]}
+                        component={Input}
+                    />
+                </div>
+                <div>
+                    <b>LookingForAJob</b>:
+                    <Field
+                        placeholder={"lookingForAJob"}
+                        name={"lookingForAJob"}
+                        validate={[]}
+                        component={Input}
+                        type={"checkbox"}/>
+                </div>
+                <div><b>My professional skills: </b>
+                    <Field
+                        placeholder={"MyProfessionalSkills"}
+                        name={"MyProfessionalSkills"}
+                        validate={[]}
+                        component={Textarea}
+                    />
+                    <div>
+                        <b>Contacts</b>:{Object.keys(profile.contacts).map(key=>{
 
-            <div>{profile.profile.contacts?.facebook}</div>
-            <div>{profile.profile.contacts?.github}</div>
-            <div>
-                <b>Contacts: </b>
-                {profile.profile.contacts &&
-                    Object.keys(profile.profile.contacts).map((key) => {
-                        return (
-                            <div key={key}>
-                                <b>{key}: </b>
-                                {profile.profile.contacts[key]}
+                            return <div className={s.contacts} key={key}>
+
+                            <b>{key}
+                                <Field
+                                    placeholder={key}
+                                    name={`contacts.${key}`} // Обратите внимание на правильный синтаксис для работы с объектом в redux-form
+                                    validate={[]}
+                                    component={Input}
+                                />
+
+                             {/*   :{createFild(key,'contacts' + key, [], Input )}*/}
+                            </b>
                             </div>
-                        );
                     })}
-            </div>
-        </form>
-    );
-};
-
-const ProfileDataReduxForm = reduxForm<ProfileType, ProfileDataFormProps>({
-    form: "profileDataForm", // Уникальное имя вашей формы
-})(ProfileData);
+                    </div>
+                </div>
+            </form>
+        );
+    };
+const ProfileDataReduxForm = reduxForm<ProfileDataFormType, ProfileType>({
+    form: "edit-profile",
+})(ProfileDataMyForm);
 
 export default ProfileDataReduxForm;

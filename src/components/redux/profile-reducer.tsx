@@ -3,48 +3,53 @@ import {ActionTypes, PostType, ProfilePageType, RootStateType} from "./state";
 import {Dispatch} from "redux";
 import {profileAPI, usersAPI} from "../../api/api";
 import ProfileContainer from "../Profile/ProfileContainer";
+import {ProfileDataFormType} from "../Profile/ProfileInfo/ProfileDataMyForm";
+import {debug} from "util";
+import {StateType} from "./redux-store";
+import {stopSubmit} from "redux-form";
 //import {profileAPI, usersAPI} from "../../api/api";
 export type postsType ={
     id: string,
     message:string,
     likesCount: number
 }
-export type ProfileType = {
-    profile: {
-        aboutMe: string;
-        lookingForAJob: string;
-        lookingForAJobDescription: string;
-        fullName:string
-        contacts: {
-            github: string
-            vk: string
-            facebook: string
-            instagram: string
-            twitter: string
-            website:string
-            youtube:string
-            mainLink: string
-            [key: string]: string;
-        };
-        photos: {
-            large: string;
-            small: string;
-        };
-        userPhoto: {
-            large: string;
-        };
-        match: {
-            params: {
-                userId: string;
-            };
-        };
-
+export type ProfType ={
+    aboutMe: string;
+    lookingForAJob: boolean;
+    lookingForAJobDescription: string;
+    fullName:string
+    contacts: {
+        github: string
+        vk: string
+        facebook: string
+        instagram: string
+        twitter: string
+        website:string
+        youtube:string
+        mainLink: string
+        [key: string]: string;
     };
-    goToEditMode:()=>void
-    statusss:string
-    updateStatus: (val: string) => void
-    isOwner:boolean
+    photos: {
+        large: string;
+        small: string;
+    };
+    userPhoto: {
+        large: string;
+    };
+    match: {
+        params: {
+            userId: string;
+        };
+    };
+}
+export type ProfileType = {
+    profile: ProfType;
+    goToEditMode:()=>void;
+    statusss:string;
+    updateStatus: (val: string) => void;
+    isOwner:boolean;
     savePhoto: (file: any) => void;
+    saveProfile: (profile: any) => Promise<void>;
 };
 
 
@@ -58,6 +63,7 @@ const initialState = {
     ] as postsType[],
    // newPostText: '',
     profile:{} as ProfileType ,
+    profileUpdateStatus:false,
     statusss:''
 }
 export type initStateType = typeof initialState
@@ -82,6 +88,9 @@ export const profileReducer = (state:initStateType=initialState,action:ActionTyp
 
       case "SAVE_PHOTO_SUCCESS":
           return {...state, profile: {...state.profile,photos:action.photos} as ProfileType}
+      case 'SAVE_PROFILE_SUCCESS':
+          return {...state,}
+
       default: return state
   }
 
@@ -105,7 +114,9 @@ export const deletePostAC = (postId:string) => {
 export const savePhotoSuccess = (photos:string) => {
   return {type:'SAVE_PHOTO_SUCCESS',photos} as const
 }
-
+export const saveProfileSuccess = (profile:string,userId:string) => {
+    return {type:'SAVE_PROFILE_SUCCESS',profile} as const
+}
 export const getProfileTC =(userId:string)=> async (dispatch:Dispatch)=>{
     let response = await
     usersAPI.getProfile(userId)
@@ -133,4 +144,38 @@ export const savePhoto =(file:any)=>async(dispatch:Dispatch)=>{
         console.log(response.data.data.photos)
         dispatch(savePhotoSuccess (response.data.data.photos))}
 
+}
+
+const checkContactFieldForError=(fieldToCheck:string,errorsArr?:string[])=>{
+   const errorToFieldArr = errorsArr?.filter(error=>error.toLowerCase().indexOf(fieldToCheck.toLowerCase())!==-1)
+if(!errorToFieldArr?.length){
+    return null
+}else{
+    return errorToFieldArr[0]
+}
+
+
+}
+export const saveProfile =(profile:ProfileDataFormType)=>async(dispatch:Dispatch<any>,
+                                                               getState:()=>StateType)=>{
+    const userId = getState().auth.userId
+    let response = await profileAPI.saveProfile(profile)
+    debugger
+    if(response.data.resultCode === 0) {
+        console.log(response.data.data.profile)
+        if (userId) {
+            dispatch(getProfileTC (userId))
+        }
+    }else{
+           dispatch(stopSubmit("edit-profile", {'contacts':{'facebook':checkContactFieldForError('facebook',response.data.messages),
+                'vk':checkContactFieldForError('vk',response.data.messages),
+                'website':checkContactFieldForError('website',response.data.messages),
+                'twitter':checkContactFieldForError('twitter',response.data.messages),
+                'instagram':checkContactFieldForError('instagram',response.data.messages),
+                'youtube':checkContactFieldForError('youtube',response.data.messages),
+                'github':checkContactFieldForError('github',response.data.messages),
+                'mainLink':checkContactFieldForError('mainLink',response.data.messages),
+        }}))
+        return Promise.reject(response.data.messages[0])
+    }
 }

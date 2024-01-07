@@ -1,6 +1,6 @@
 import React, {MouseEventHandler} from "react";
 import s from './Header.module.css'
-import {Navigate, NavLink} from "react-router-dom";
+import { NavLink} from "react-router-dom";
 import {MapStatePropsType} from "./HeaderContainer";
 
 export const Header = (props:MapStatePropsType) => {

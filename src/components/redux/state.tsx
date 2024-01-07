@@ -1,6 +1,6 @@
 import {DialogPageType, dialogsReducer, sendTextAC} from "./dialogs-reducer"
 import {
-    addPostAC, deletePostAC, profileReducer, savePhotoSuccess, setStatusProfileAC, setUserProfileAC,
+    addPostAC, deletePostAC, profileReducer, savePhotoSuccess, saveProfileSuccess, setStatusProfileAC, setUserProfileAC,
     /*    updateNewPostTextAC*/
 } from "./profile-reducer"
 import {sidebarReducer} from "./sidebar-reducer";
@@ -12,7 +12,7 @@ import {
     ToggleFeathingAC, ToglefollowingInProgress,
      unfollowSuccess
 } from "./users-reducer";
-import {setUserAuthDataAC} from "./auth-reducer";
+import {getCaptchaUrl, getCaptchaUrlAC, setUserAuthDataAC} from "./auth-reducer";
 import { initializedSuccessAC } from "./app-reducer";
 
 export type StoreType = {
@@ -159,6 +159,8 @@ export type ActionTypes =
     |ReturnType<typeof initializedSuccessAC>
     |ReturnType<typeof deletePostAC>
     |ReturnType<typeof savePhotoSuccess>
+    |ReturnType<typeof saveProfileSuccess>
+    |ReturnType<typeof getCaptchaUrlAC>
 
 
 export type MessageType = {

@@ -1,10 +1,11 @@
 import React from "react";
 import s from './Profile.module.css'
 import {MyPosts} from "./MyPosts/MyPosts";
-import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
+//import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {ActionTypes, PostType, ProfilePageType, StoreType} from "../redux/state";
 import { SuperMyPostContainer, SuperMyPostContainerType} from "./MyPosts/MyPostsContainer";
 import {initStateType, ProfileType} from "../redux/profile-reducer";
+import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 
 /*export type ProfileType ={
  //   profilePagestate:PostType[]
@@ -20,28 +21,25 @@ import {initStateType, ProfileType} from "../redux/profile-reducer";
 
 
 }*/
-export const Profile = (props:ProfileType) => {
-  return (
-      <div className={s.profileWrapperContent}>
-          <ProfileInfo isOwner={props.isOwner}
-                       goToEditMode={props.goToEditMode}
-                      // photo={props.photo}
-                       savePhoto={props.savePhoto}
-              profile={props.profile}
-                       statusss={props.statusss}
-                       updateStatus={props.updateStatus}
-          />
-          <SuperMyPostContainer
-              //store={props.store}
+export const Profile: React.FC<ProfileType> = (props) => {
+    const {saveProfile, isOwner, goToEditMode, savePhoto, profile, statusss, updateStatus } = props;
 
-            //  profilePagestate={props.profilePagestate}
-              //   store={props.store}
-                  //newPostText={props.newPostText}
-              // dispatch={props.dispatch}
-              //dispatch={props.dispatch({type:"ADD-POST",newPostText:props.newPostText})}
-                  // addNewPost={props.addNewPost}
-                //updateNewPostText={props.updateNewPostText}
-          />
-      </div>
-  )
-}
+
+    return (
+        <div className={s.profileWrapperContent}>
+            <ProfileInfo
+                saveProfile={saveProfile}
+                isOwner={isOwner}
+                goToEditMode={goToEditMode}
+                savePhoto={savePhoto}
+                // @ts-ignore
+                profile={profile}  // Измените это место
+                statusss={statusss}
+                updateStatus={updateStatus}
+            />
+            <SuperMyPostContainer />
+        </div>
+    );
+};
+
+// Определите тип ProfileInfoProps

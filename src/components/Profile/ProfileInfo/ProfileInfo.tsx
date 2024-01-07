@@ -5,12 +5,12 @@ import {ProfileStatus} from "./ProfileStatus";
 import {ProfileType} from "../../redux/profile-reducer";
 import {ProfileStatusWitchHooks} from "./ProfileStatusWitchHooks";
 import userPhoto from "../../../assets/img/photo.png";
+import ProfileDataMyForm, {ProfileDataFormType} from "./ProfileDataMyForm";
 //import {ProfileDataForm} from "./ProfileDataMyForm";
 
 //export const ProfileInfo = (props: ProfileType) => {
 export const ProfileInfo: React.FC<ProfileType> = (props: ProfileType) => {
-    const {profile, isOwner, statusss, updateStatus, savePhoto} = props;
-
+    const {profile, isOwner, statusss, updateStatus, savePhoto, saveProfile} = props;
 
 
     const [isUploading, setIsUploading] = useState(false);
@@ -29,6 +29,16 @@ export const ProfileInfo: React.FC<ProfileType> = (props: ProfileType) => {
             }
         }
     };
+
+    const onSubmit =  (formData: ProfileDataFormType) => {
+    /*    saveProfile(formData)
+        seteditMode(false)*/
+        saveProfile(formData).then (()=>{
+            seteditMode(false)
+        })
+    }
+
+    // @ts-ignore
     return (
 
         <div className={s.profileWrapperContent}>
@@ -42,19 +52,27 @@ export const ProfileInfo: React.FC<ProfileType> = (props: ProfileType) => {
                     </div>
                 )}
             </div>
-            <div className={s.userInfo}><ProfileStatusWitchHooks status={statusss} updateStatus={updateStatus}/></div>
-            {editMode ? <ProfileData
+            <div className={s.userInfo}><ProfileStatusWitchHooks
+                status={statusss} updateStatus={updateStatus}/></div>
+
+            {editMode ? <ProfileDataMyForm
+                initialValues={profile}
+                    saveProfile={saveProfile}
+                    onSubmit={onSubmit}
                     profile={profile}
                     statusss={statusss}
                     updateStatus={updateStatus}
                     savePhoto={savePhoto}
                     isOwner={isOwner}
-                    goToEditMode={() =>{}}
+                    goToEditMode={() => {
+                    }}
                 /> :
 
                 <ProfileData
+                    saveProfile={saveProfile}
                     goToEditMode={() => {
-                        seteditMode(true)}}
+                        seteditMode(true)
+                    }}
                     profile={profile}
                     statusss={statusss}
                     updateStatus={updateStatus}
@@ -128,7 +146,10 @@ const ProfileData = ({profile, isOwner, goToEditMode}: ProfileType) => {
     )
 }*/
 // Обновите вашу функцию Contact с явными типами
-export const Contact: React.FC<{ contactTitle: string; contactValue: string }> = ({contactTitle, contactValue}) => {
+export const Contact: React.FC<{
+    contactTitle: string;
+    contactValue: string
+}> = ({contactTitle, contactValue}) => {
     return (
         <div className={s.contacts}><b>{contactTitle}</b>: {contactValue}</div>
     );

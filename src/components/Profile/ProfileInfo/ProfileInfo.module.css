@@ -7,6 +7,15 @@
     width: 900px;
 
 }
+.formSummaryError {
+    border: none;
+    color: #f83030;
+    padding: 2px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+}
 
 .profileWrapperContent {
     grid-area:auto;

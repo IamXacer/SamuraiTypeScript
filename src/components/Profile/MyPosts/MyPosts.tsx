@@ -39,7 +39,7 @@ export const MyPosts = React.memo((props:SuperMyPostContainerType) => {
     let {posts} = props.profilePagestate;
 
     const post = props.profilePagestate.posts.map(postmassage =>
-        <Post id={postmassage.id} message={postmassage.message}
+        <Post key={postmassage.id} id={postmassage.id} message={postmassage.message}
               likeCount={postmassage.likesCount}/>)
 
     interface FormValues {

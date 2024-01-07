@@ -2,7 +2,14 @@ import React from "react";
 import {Profile} from "./Profile";
 import {AppStateType} from "../redux/redux-store";
 import {connect} from "react-redux";
-import {getProfileStatusTC, getProfileTC, initStateType, savePhoto, updateStatus} from "../redux/profile-reducer";
+import {
+    getProfileStatusTC,
+    getProfileTC,
+    initStateType,
+    savePhoto,
+    saveProfile,
+    updateStatus
+} from "../redux/profile-reducer";
 import {Navigate, useParams} from 'react-router-dom';
 import {witchAutchRedirect} from "../../hoc/AutchRedirect";
 import {compose} from "redux";
@@ -41,7 +48,8 @@ class ProfileContainer extends React.Component<any, initStateType> {
             <Profile {...this.props}
                      goToEditMode={this.props.goToEditMode}
           //photo={this.props.photo}
-                isOwner ={!this.props.match.params.userId}
+                     saveProfile={this.props.saveProfile}
+                     isOwner ={!this.props.match.params.userId}
                      profile={this.props.profile}
                      statusss={this.props.status}
                      updateStatus={this.props.updateStatus}
@@ -56,13 +64,15 @@ class ProfileContainer extends React.Component<any, initStateType> {
 export type mapStateToPropsType = {
     profile: any,
     status:string,
-    authorizedUserId:null,
+    authorizedUserId:string|null,
     isAuth:boolean,
+    saveProfile: (profile: any) => void;
 
 }
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
         profile: state.profileReducer.profile,
+        saveProfile: state.profileReducer.profile.saveProfile,
         status: state.profileReducer.statusss,
         authorizedUserId:state.auth.userId,
         isAuth:state.auth.isAuth,
@@ -73,7 +83,7 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 export default compose<React.ComponentType>(
     connect(mapStateToProps, {
      //   witchRedirect,
-        getProfileTC,getProfileStatusTC,updateStatus,savePhoto}),
+        getProfileTC,getProfileStatusTC,updateStatus,savePhoto,saveProfile}),
     withRouter,
   witchAutchRedirect,
 )(ProfileContainer)

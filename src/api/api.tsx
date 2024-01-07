@@ -1,11 +1,13 @@
 import axios, {AxiosResponse} from "axios";
+import {ProfileType, saveProfile} from "../components/redux/profile-reducer";
+import {ProfileDataFormType} from "../components/Profile/ProfileInfo/ProfileDataMyForm";
 
 
 const instance = axios.create({
     withCredentials: true,
-    baseURL: ' https://social-network.samuraijs.com/api/1.0/',
+    baseURL: ' https://social-network.samuraijs.com/api/1.0',
     headers: {
-        'API-KEY': 'a6e29801-4b3b-42a5-8f19-8130e7a91de7'
+        'API-KEY': 'b065bf6e-44ae-43b6-a44e-574f538b9979'
     }
 })
 
@@ -59,6 +61,9 @@ return  instance.get('/profile/status/'+userId)
                 'Content-Type':'multipart/form-data'
             }
         })
+    },
+    saveProfile (profile:ProfileDataFormType){
+       return instance.put('profile',profile)
     }
 
 }
@@ -77,4 +82,8 @@ export const LoginAPI = {
 }
 
 
-
+export const securityAPI = {
+    getCaptchaUrl () {
+        return instance.get('/security/get-captcha-url')
+    }
+}
