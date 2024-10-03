@@ -29,7 +29,8 @@ export const authReducer = (state:AuthStateType = initialState,
           }
       case "GET_CAPTCHA_URL":
           return {
-              ...state,captchaUrl:action.payload.captchaUrl || null
+              ...state,...action.payload
+                 /* .captchaUrl || null*/
           }
       default:return state
   }
@@ -45,14 +46,15 @@ export const getMeTC = ()=> async (dispatch:Dispatch)=>{
   /* return  LoginAPI.me().then*/
     if (response.data.resultCode === 0){
             let {id,email,login} = response.data.data
-            dispatch(setUserAuthDataAC(email,id,login,true))
+
+        dispatch(setUserAuthDataAC(email,id,login,true))
         }
 }
 
-export const login  = (email:null,password:null,rememberMe:boolean): AppThunkType=>
+export const login  = (email:null,password:null,rememberMe:boolean,captcha:string | null): AppThunkType=>
     async  (dispatch)=>{
       //
-        let response = await  LoginAPI.login(email,password,rememberMe)
+        let response = await  LoginAPI.login(email,password,rememberMe,captcha)
 /*            .then*/
         if(response.data.resultCode === 0){
                dispatch(getMeTC())
@@ -65,11 +67,12 @@ export const login  = (email:null,password:null,rememberMe:boolean): AppThunkTyp
            }
 
 }
-export const getCaptchaUrl = ()=> async(dispatch:Dispatch) => {
-        const response = await securityAPI.getCaptchaUrl()
-        const captchaUrl = response.data.url
-        dispatch(getCaptchaUrlAC(captchaUrl))
-
+export const getCaptchaUrl = () =>async (dispatch:Dispatch)=>{
+    const response = await securityAPI.getCaptchaUrl()
+    console.log('response.data.captchaUrl')
+    const CaptchaUrl = response.data.url
+    debugger
+    dispatch(getCaptchaUrlAC(CaptchaUrl))
 }
 export const logoutTC = ()=>
     async (dispatch:Dispatch)=>{
