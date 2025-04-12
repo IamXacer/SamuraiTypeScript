@@ -26,7 +26,6 @@ class ProfileContainer extends React.Component<any, initStateType> {
     refreshProfile (){
         let userId = this.props.match.params.userId
         if (!userId ) {
-
             userId = this.props.authorizedUserId
             if  (!userId){
                 this.props.history.push('/login')
@@ -80,6 +79,7 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 
     }
 }
+
 export default compose<React.ComponentType>(
     connect(mapStateToProps, {
      //   witchRedirect,

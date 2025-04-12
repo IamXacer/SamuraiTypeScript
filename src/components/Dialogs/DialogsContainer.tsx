@@ -17,12 +17,22 @@ type mapDispatchToPropsType = {
     //updateNewMessageText:(newText:string)=>void
     addNewDialog:(newMassageBody:string)=>void
 }
+
 let mapStateToProps = (state:AppStateType):mapStateToPropsType => {
     return {
         dialogsPage: state.dialogsReducer,
-
     }
 }
+
+let AutchRedirectComponent = witchAutchRedirect(Dialog)
+
+
+export const SuperDialogContainer = connect(mapStateToProps,
+    {
+        addNewDialog:sendTextAC
+    })
+(AutchRedirectComponent)
+export default SuperDialogContainer;
 
 /*let mapDispatchToProps = (dispatch:Dispatch):mapDispatchToPropsType =>{
     return {
@@ -41,13 +51,3 @@ let mapStateToProps = (state:AppStateType):mapStateToPropsType => {
         }),
     witchAutchRedirect
 )(Dialog)*/
-
-let AutchRedirectComponent = witchAutchRedirect(Dialog)
-
-
-export const SuperDialogContainer = connect(mapStateToProps,
-    {
-        addNewDialog:sendTextAC
-    })
-(AutchRedirectComponent)
-export default SuperDialogContainer;

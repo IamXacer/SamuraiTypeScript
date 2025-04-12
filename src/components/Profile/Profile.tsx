@@ -16,7 +16,7 @@ import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
  // store:StoreType
  // store:StoreType
 }*/
-/*export type ProfileType= {
+/*export type ProfileType= {`   ```
     profile:null
 
 
